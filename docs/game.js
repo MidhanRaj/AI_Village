@@ -13,31 +13,31 @@ const RIVER_RECT = { x: 1480, y: 180, w: 320, h: 1060 };
 const DOCK_RECT = { x: 1420, y: 456, w: 160, h: 96 };
 
 const WORLD_PROPS = [
-  { key: "bldg_tavern", x: 100, y: 120, rect: { x: 116, y: 224, w: 224, h: 108 } },
+  { key: "bldg_tavern", x: 80, y: 120, rect: { x: 96, y: 224, w: 224, h: 108 } },
   { key: "bldg_forge", x: 620, y: 140, rect: { x: 636, y: 244, w: 224, h: 108 } },
   { key: "bldg_wizard", x: 980, y: 140, rect: { x: 996, y: 244, w: 224, h: 108 } },
-  { key: "bldg_healer", x: 120, y: 760, rect: { x: 136, y: 864, w: 224, h: 108 } },
+  { key: "bldg_healer", x: 80, y: 760, rect: { x: 96, y: 864, w: 224, h: 108 } },
   { key: "bldg_cottage", x: 660, y: 820, rect: { x: 676, y: 924, w: 224, h: 108 } },
   { key: "bldg_cottage", x: 1080, y: 780, rect: { x: 1096, y: 884, w: 224, h: 108 } },
-  { key: "anvil", x: 600, y: 356, rect: { x: 606, y: 372, w: 48, h: 36 } },
-  { key: "furnace", x: 870, y: 260, rect: { x: 878, y: 312, w: 80, h: 64 } },
+  { key: "anvil", x: 530, y: 250, rect: { x: 536, y: 266, w: 64, h: 48 } },
+  { key: "furnace", x: 880, y: 250, rect: { x: 888, y: 302, w: 80, h: 64 } },
   { key: "alchemy", x: 1225, y: 290, rect: { x: 1232, y: 330, w: 80, h: 48 } },
   { key: "workbench", x: 920, y: 920, rect: { x: 928, y: 964, w: 80, h: 48 } },
   { key: "farm_crops", x: 480, y: 790, rect: null, ground: true },
   { key: "farm_crops", x: 480, y: 880, rect: null, ground: true },
-  { key: "flowers", x: 140, y: 990, rect: null, ground: true },
-  { key: "tree_1", x: 40, y: 40, rect: { x: 64, y: 150, w: 48, h: 36 } },
-  { key: "tree_2", x: 420, y: 60, rect: { x: 444, y: 170, w: 48, h: 36 } },
-  { key: "tree_3", x: 860, y: 40, rect: { x: 884, y: 150, w: 48, h: 36 } },
-  { key: "tree_1", x: 1320, y: 60, rect: { x: 1344, y: 170, w: 48, h: 36 } },
+  { key: "flowers", x: 120, y: 990, rect: null, ground: true },
+  { key: "tree_1", x: 40, y: 20, rect: { x: 64, y: 130, w: 48, h: 36 } },
+  { key: "tree_2", x: 470, y: 40, rect: { x: 494, y: 150, w: 48, h: 36 } },
+  { key: "tree_3", x: 860, y: 30, rect: { x: 884, y: 140, w: 48, h: 36 } },
+  { key: "tree_1", x: 1320, y: 40, rect: { x: 1344, y: 150, w: 48, h: 36 } },
   { key: "tree_2", x: 40, y: 560, rect: { x: 64, y: 670, w: 48, h: 36 } },
   { key: "tree_3", x: 60, y: 1140, rect: { x: 84, y: 1250, w: 48, h: 36 } },
   { key: "tree_1", x: 520, y: 1180, rect: { x: 544, y: 1290, w: 48, h: 36 } },
   { key: "tree_2", x: 960, y: 1180, rect: { x: 984, y: 1290, w: 48, h: 36 } },
   { key: "tree_3", x: 1330, y: 1060, rect: { x: 1354, y: 1170, w: 48, h: 36 } },
-  { key: "bush", x: 360, y: 180, rect: { x: 370, y: 200, w: 44, h: 32 } },
+  { key: "bush", x: 270, y: 360, rect: { x: 280, y: 380, w: 44, h: 32 } },
   { key: "bush", x: 910, y: 640, rect: { x: 920, y: 660, w: 44, h: 32 } },
-  { key: "rock", x: 1360, y: 680, rect: { x: 1370, y: 696, w: 72, h: 36 } },
+  { key: "rock", x: 1380, y: 680, rect: { x: 1390, y: 696, w: 56, h: 36 } },
 ];
 
 const OBSTACLES = WORLD_PROPS.filter((p) => p.rect).map((p) => p.rect).concat([
@@ -599,9 +599,10 @@ async function main() {
   });
 
   const worldKeys = [
-    "tile_grass", "tile_grass_var1", "tile_grass_var2", "tile_path", "tile_cobble", "tile_water", "tile_wood",
+    "tile_grass", "tile_path", "tile_path_left", "tile_path_right", "tile_path_top", "tile_path_bottom",
+    "tile_cobble", "tile_water", "tile_water_left", "tile_water_top", "tile_water_bottom", "tile_wood",
     "bldg_tavern", "bldg_forge", "bldg_wizard", "bldg_healer", "bldg_cottage",
-    "bonfire", "anvil", "furnace", "alchemy", "workbench", "farm_crops", "flowers",
+    "anvil", "furnace", "alchemy", "workbench", "farm_crops", "flowers",
     "tree_1", "tree_2", "tree_3", "bush", "rock",
   ];
   const worldImgs = {};
@@ -616,24 +617,30 @@ async function main() {
   gctx.imageSmoothingEnabled = false;
   for (let x = 0; x < WORLD_WIDTH; x += 32) {
     for (let y = 0; y < WORLD_HEIGHT; y += 32) {
-      const h = ((x * 73856093) ^ (y * 19349663)) & 0xff;
-      let t = worldImgs.tile_grass;
-      if (h < 22) t = worldImgs.tile_grass_var1;
-      else if (h < 42) t = worldImgs.tile_grass_var2;
-      gctx.drawImage(t, x, y);
+      gctx.drawImage(worldImgs.tile_grass, x, y);
     }
   }
-  for (let x = 352; x < 448; x += 32) {
-    for (let y = 0; y < WORLD_HEIGHT; y += 32) gctx.drawImage(worldImgs.tile_path, x, y);
+  for (let y = 0; y < WORLD_HEIGHT; y += 32) {
+    gctx.drawImage(worldImgs.tile_path_left, 352, y);
+    gctx.drawImage(worldImgs.tile_path, 384, y);
+    gctx.drawImage(worldImgs.tile_path_right, 416, y);
   }
   for (let x = 0; x < 1480; x += 32) {
-    for (let y = 448; y < 544; y += 32) gctx.drawImage(worldImgs.tile_path, x, y);
+    gctx.drawImage(worldImgs.tile_path_top, x, 448);
+    gctx.drawImage(worldImgs.tile_path, x, 480);
+    gctx.drawImage(worldImgs.tile_path_bottom, x, 512);
   }
   for (let x = 448; x < 672; x += 32) {
-    for (let y = 352; y < 576; y += 32) gctx.drawImage(worldImgs.tile_cobble, x, y);
+    for (let y = 384; y < 576; y += 32) gctx.drawImage(worldImgs.tile_cobble, x, y);
   }
   for (let x = RIVER_RECT.x; x < RIVER_RECT.x + RIVER_RECT.w; x += 32) {
-    for (let y = RIVER_RECT.y; y < RIVER_RECT.y + RIVER_RECT.h; y += 32) gctx.drawImage(worldImgs.tile_water, x, y);
+    for (let y = RIVER_RECT.y; y < RIVER_RECT.y + RIVER_RECT.h; y += 32) {
+      let wt = worldImgs.tile_water;
+      if (x === RIVER_RECT.x) wt = worldImgs.tile_water_left;
+      else if (y === RIVER_RECT.y) wt = worldImgs.tile_water_top;
+      else if (y >= RIVER_RECT.y + RIVER_RECT.h - 32) wt = worldImgs.tile_water_bottom;
+      gctx.drawImage(wt, x, y);
+    }
   }
   for (let x = DOCK_RECT.x; x < DOCK_RECT.x + DOCK_RECT.w; x += 32) {
     for (let y = DOCK_RECT.y; y < DOCK_RECT.y + DOCK_RECT.h; y += 32) gctx.drawImage(worldImgs.tile_wood, x, y);

@@ -321,9 +321,9 @@ def create_npcs(villagers):
         "Wizard": (1050, 380),
         "Merchant": (740, 1050),
         "Farmer": (490, 880),
-        "Guard": (440, 460),
-        "Healer": (210, 990),
-        "Innkeeper": (210, 355),
+        "Guard": (490, 440),
+        "Healer": (190, 990),
+        "Innkeeper": (190, 355),
         "Elder": (1160, 1010),
         "Fisherwoman": (1420, 470),
         "Fisherman": (1420, 470),
@@ -386,38 +386,38 @@ WORLD_ASSETS = load_world_assets()
 RIVER_RECT = pygame.Rect(1480, 180, 320, 1060)
 DOCK_RECT = pygame.Rect(1420, 456, 160, 96)
 
-# Buildings & props: (asset_key, x, y, solid_rect_or_None)
+# Buildings & props: (asset_key, x, y, solid_rect_or_None) — kept clear of roads (x=352..448, y=448..544)
 WORLD_PROPS = [
     # Buildings (solid rect covers lower walls so player can walk behind roof)
-    ("bldg_tavern", 100, 120, pygame.Rect(116, 224, 224, 108)),
+    ("bldg_tavern", 80, 120, pygame.Rect(96, 224, 224, 108)),
     ("bldg_forge", 620, 140, pygame.Rect(636, 244, 224, 108)),
     ("bldg_wizard", 980, 140, pygame.Rect(996, 244, 224, 108)),
-    ("bldg_healer", 120, 760, pygame.Rect(136, 864, 224, 108)),
+    ("bldg_healer", 80, 760, pygame.Rect(96, 864, 224, 108)),
     ("bldg_cottage", 660, 820, pygame.Rect(676, 924, 224, 108)),
     ("bldg_cottage", 1080, 780, pygame.Rect(1096, 884, 224, 108)),
 
-    # Crafting stations & village props (placed cleanly by their matching buildings)
-    ("anvil", 600, 356, pygame.Rect(606, 372, 48, 36)),
-    ("furnace", 870, 260, pygame.Rect(878, 312, 80, 64)),
+    # Crafting stations & village props (placed beside their matching buildings, off roads)
+    ("anvil", 530, 250, pygame.Rect(536, 266, 64, 48)),
+    ("furnace", 880, 250, pygame.Rect(888, 302, 80, 64)),
     ("alchemy", 1225, 290, pygame.Rect(1232, 330, 80, 48)),
     ("workbench", 920, 920, pygame.Rect(928, 964, 80, 48)),
     ("farm_crops", 480, 790, None),
     ("farm_crops", 480, 880, None),
-    ("flowers", 140, 990, None),
+    ("flowers", 120, 990, None),
 
-    # Trees & rocks framing the village
-    ("tree_1", 40, 40, pygame.Rect(64, 150, 48, 36)),
-    ("tree_2", 420, 60, pygame.Rect(444, 170, 48, 36)),
-    ("tree_3", 860, 40, pygame.Rect(884, 150, 48, 36)),
-    ("tree_1", 1320, 60, pygame.Rect(1344, 170, 48, 36)),
+    # Trees & rocks framing the outer perimeter & river bank (off roads)
+    ("tree_1", 40, 20, pygame.Rect(64, 130, 48, 36)),
+    ("tree_2", 470, 40, pygame.Rect(494, 150, 48, 36)),
+    ("tree_3", 860, 30, pygame.Rect(884, 140, 48, 36)),
+    ("tree_1", 1320, 40, pygame.Rect(1344, 150, 48, 36)),
     ("tree_2", 40, 560, pygame.Rect(64, 670, 48, 36)),
     ("tree_3", 60, 1140, pygame.Rect(84, 1250, 48, 36)),
     ("tree_1", 520, 1180, pygame.Rect(544, 1290, 48, 36)),
     ("tree_2", 960, 1180, pygame.Rect(984, 1290, 48, 36)),
     ("tree_3", 1330, 1060, pygame.Rect(1354, 1170, 48, 36)),
-    ("bush", 360, 180, pygame.Rect(370, 200, 44, 32)),
+    ("bush", 270, 360, pygame.Rect(280, 380, 44, 32)),
     ("bush", 910, 640, pygame.Rect(920, 660, 44, 32)),
-    ("rock", 1360, 680, pygame.Rect(1370, 696, 72, 36)),
+    ("rock", 1380, 680, pygame.Rect(1390, 696, 56, 36)),
 ]
 
 obstacles = [r for (_, _, _, r) in WORLD_PROPS if r is not None]
@@ -429,47 +429,60 @@ obstacles.append(pygame.Rect(RIVER_RECT.x, DOCK_RECT.bottom, RIVER_RECT.width, R
 def build_ground_surface():
     surf = pygame.Surface((WORLD_WIDTH, WORLD_HEIGHT))
     t_grass = WORLD_ASSETS.get("tile_grass")
-    t_g1 = WORLD_ASSETS.get("tile_grass_var1")
-    t_g2 = WORLD_ASSETS.get("tile_grass_var2")
     t_path = WORLD_ASSETS.get("tile_path")
+    t_path_l = WORLD_ASSETS.get("tile_path_left")
+    t_path_r = WORLD_ASSETS.get("tile_path_right")
+    t_path_t = WORLD_ASSETS.get("tile_path_top")
+    t_path_b = WORLD_ASSETS.get("tile_path_bottom")
     t_cobble = WORLD_ASSETS.get("tile_cobble")
     t_water = WORLD_ASSETS.get("tile_water")
+    t_water_l = WORLD_ASSETS.get("tile_water_left")
+    t_water_t = WORLD_ASSETS.get("tile_water_top")
+    t_water_b = WORLD_ASSETS.get("tile_water_bottom")
     t_wood = WORLD_ASSETS.get("tile_wood")
 
     if not t_grass:
         surf.fill(GRASS)
         return surf
 
+    # Uniform lush grass base (no squarey checkerboard)
     for x in range(0, WORLD_WIDTH, 32):
         for y in range(0, WORLD_HEIGHT, 32):
-            h = (x * 73856093 ^ y * 19349663) & 0xFF
-            tile = t_grass
-            if h < 22 and t_g1:
-                tile = t_g1
-            elif h < 42 and t_g2:
-                tile = t_g2
-            surf.blit(tile, (x, y))
+            surf.blit(t_grass, (x, y))
 
-    # Dirt roads
+    # Dirt roads with soft autotile edges
     if t_path:
-        for x in range(352, 448, 32):
-            for y in range(0, WORLD_HEIGHT, 32):
-                surf.blit(t_path, (x, y))
+        for y in range(0, WORLD_HEIGHT, 32):
+            if t_path_l:
+                surf.blit(t_path_l, (352, y))
+            surf.blit(t_path, (384, y))
+            if t_path_r:
+                surf.blit(t_path_r, (416, y))
         for x in range(0, 1480, 32):
-            for y in range(448, 544, 32):
-                surf.blit(t_path, (x, y))
+            if t_path_t:
+                surf.blit(t_path_t, (x, 448))
+            surf.blit(t_path, (x, 480))
+            if t_path_b:
+                surf.blit(t_path_b, (x, 512))
 
     # Village cobble plaza in the center
     if t_cobble:
         for x in range(448, 672, 32):
-            for y in range(352, 576, 32):
+            for y in range(384, 576, 32):
                 surf.blit(t_cobble, (x, y))
 
-    # East river & wooden fishing dock
+    # East river with rippled water & bank edges + wooden fishing dock
     if t_water:
         for x in range(RIVER_RECT.x, RIVER_RECT.right, 32):
             for y in range(RIVER_RECT.y, RIVER_RECT.bottom, 32):
-                surf.blit(t_water, (x, y))
+                tile = t_water
+                if x == RIVER_RECT.x and t_water_l:
+                    tile = t_water_l
+                elif y == RIVER_RECT.y and t_water_t:
+                    tile = t_water_t
+                elif y >= RIVER_RECT.bottom - 32 and t_water_b:
+                    tile = t_water_b
+                surf.blit(tile, (x, y))
     if t_wood:
         for x in range(DOCK_RECT.x, DOCK_RECT.right, 32):
             for y in range(DOCK_RECT.y, DOCK_RECT.bottom, 32):
