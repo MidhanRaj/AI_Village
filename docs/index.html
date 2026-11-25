@@ -37,15 +37,35 @@
       <div id="customizer-modal" class="hidden">
         <div class="modal-card">
           <h2>Customize Player</h2>
+          <div class="preview-wrap">
+            <canvas id="cust-preview" width="96" height="96"></canvas>
+          </div>
           <label>
             Name
             <input id="cust-name" type="text" maxlength="18" value="Traveler" />
           </label>
           <label>
-            Character Appearance
-            <select id="cust-sprite"></select>
+            Skin Tone
+            <select id="cust-skin"></select>
+          </label>
+          <label>
+            Hair Color
+            <select id="cust-hair"></select>
+          </label>
+          <label>
+            Outfit Color
+            <select id="cust-outfit"></select>
+          </label>
+          <label>
+            Hat / Headgear
+            <select id="cust-hat"></select>
+          </label>
+          <label>
+            Cloak / Cape
+            <select id="cust-cape"></select>
           </label>
           <div class="modal-actions">
+            <button id="cust-random" type="button">Randomize</button>
             <button id="cust-save" type="button">Save</button>
             <button id="cust-cancel" type="button">Cancel</button>
           </div>

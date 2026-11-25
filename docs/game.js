@@ -26,7 +26,7 @@ const STATIONARY_ROLES = new Set(["Wizard", "Witch", "Elder", "Blacksmith", "Hea
 
 const ROLE_PERSONALITIES = {
   Blacksmith: "You are gruff, practical, and proud of your forge work.",
-  Wizard: "You are wise, eccentric, and slightly mysterious, studying stars and arcane energies.",
+  Wizard: "You are wise, eccentric, and slightly mysterious, studying stars and arcane spells.",
   Witch: "You are sharp-witted, mysterious, and knowledgeable about herbs and charms.",
   Merchant: "You are friendly, persuasive, and always thinking about trade and prices.",
   Farmer: "You are warm, grounded, and care about weather, crops, and soil.",
@@ -40,6 +40,48 @@ const ROLE_PERSONALITIES = {
   Villager: "You are friendly, curious, and enjoy chatting about daily village life.",
 };
 
+const SKIN_PRESETS = [
+  { label: "Fair", shift: [1.0, 1.0, 1.0] },
+  { label: "Olive", shift: [0.92, 0.88, 0.72] },
+  { label: "Bronze", shift: [0.85, 0.68, 0.50] },
+  { label: "Deep Brown", shift: [0.62, 0.44, 0.32] },
+  { label: "Pale", shift: [1.06, 1.02, 1.04] },
+];
+
+const HAIR_PRESETS = [
+  { label: "Chestnut", rgb: [115, 68, 42] },
+  { label: "Raven Black", rgb: [38, 38, 48] },
+  { label: "Golden Blonde", rgb: [215, 178, 82] },
+  { label: "Fiery Ginger", rgb: [196, 86, 40] },
+  { label: "Silver", rgb: [208, 214, 224] },
+  { label: "Emerald", rgb: [56, 148, 96] },
+];
+
+const OUTFIT_PRESETS = [
+  { label: "Crimson Tunic", rgb: [175, 52, 56] },
+  { label: "Royal Blue", rgb: [52, 92, 175] },
+  { label: "Forest Green", rgb: [54, 132, 72] },
+  { label: "Arcane Purple", rgb: [122, 64, 168] },
+  { label: "Golden Tunic", rgb: [192, 148, 48] },
+  { label: "Obsidian", rgb: [52, 54, 64] },
+];
+
+const HAT_PRESETS = [
+  { label: "None", type: "none" },
+  { label: "Adventurer Cap", type: "cap", color: "#3d6b4b" },
+  { label: "Wizard Hat", type: "wizard", color: "#433478" },
+  { label: "Red Bandana", type: "bandana", color: "#b83b3b" },
+  { label: "Golden Crown", type: "crown", color: "#e8be3a" },
+];
+
+const CAPE_PRESETS = [
+  { label: "None", color: null },
+  { label: "Crimson Cloak", color: "#8c262c" },
+  { label: "Forest Cloak", color: "#2c663c" },
+  { label: "Midnight Cloak", color: "#282e47" },
+  { label: "Royal Purple", color: "#5e2c7a" },
+];
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const promptEl = document.getElementById("prompt");
@@ -51,8 +93,14 @@ const dlgInput = document.getElementById("dlg-input");
 const playerLabel = document.getElementById("player-label");
 const btnCustomize = document.getElementById("btn-customize");
 const custModal = document.getElementById("customizer-modal");
+const custPreview = document.getElementById("cust-preview");
 const custName = document.getElementById("cust-name");
-const custSprite = document.getElementById("cust-sprite");
+const custSkin = document.getElementById("cust-skin");
+const custHair = document.getElementById("cust-hair");
+const custOutfit = document.getElementById("cust-outfit");
+const custHat = document.getElementById("cust-hat");
+const custCape = document.getElementById("cust-cape");
+const custRandom = document.getElementById("cust-random");
 const custSave = document.getElementById("cust-save");
 const custCancel = document.getElementById("cust-cancel");
 const btnAi = document.getElementById("btn-ai");
@@ -60,6 +108,7 @@ const aiStatus = document.getElementById("ai-status");
 
 const keys = new Set();
 let webllmEngine = null;
+let aiLoading = false;
 let aiThinking = false;
 let dialogueOpen = false;
 let activeNpc = null;
@@ -92,6 +141,88 @@ function hasIdleRows(img) {
     if (data[i] > 0) return true;
   }
   return false;
+}
+
+function buildCustomPlayerSheet(baseSheet, cfg) {
+  const off = document.createElement("canvas");
+  off.width = baseSheet.width;
+  off.height = baseSheet.height;
+  const octx = off.getContext("2d");
+  octx.drawImage(baseSheet, 0, 0);
+
+  const skin = SKIN_PRESETS[cfg.skin % SKIN_PRESETS.length];
+  const hair = HAIR_PRESETS[cfg.hair % HAIR_PRESETS.length];
+  const outfit = OUTFIT_PRESETS[cfg.outfit % OUTFIT_PRESETS.length];
+  const hat = HAT_PRESETS[cfg.hat % HAT_PRESETS.length];
+  const cape = CAPE_PRESETS[cfg.cape % CAPE_PRESETS.length];
+
+  // Recolor skin, hair, and shirt pixels per frame
+  const imgData = octx.getImageData(0, 0, off.width, off.height);
+  const d = imgData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i + 3] === 0) continue;
+    const r = d[i], g = d[i + 1], b = d[i + 2];
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const lum = (r * 0.3 + g * 0.59 + b * 0.11) / 255;
+
+    // Warm peach skin tones -> tint with skin preset
+    if (r > g + 12 && g > b + 6 && r > 130 && max - min < 95) {
+      d[i] = Math.min(255, Math.round(r * skin.shift[0]));
+      d[i + 1] = Math.min(255, Math.round(g * skin.shift[1]));
+      d[i + 2] = Math.min(255, Math.round(b * skin.shift[2]));
+    } else if (b > r + 15 && b > g) {
+      // Blue/cool shirt pixels -> recolor to chosen outfit color
+      const shade = 0.55 + lum * 0.75;
+      d[i] = Math.min(255, Math.round(outfit.rgb[0] * shade));
+      d[i + 1] = Math.min(255, Math.round(outfit.rgb[1] * shade));
+      d[i + 2] = Math.min(255, Math.round(outfit.rgb[2] * shade));
+    } else if (r > b + 20 && g > 50 && g < 160 && r < 180) {
+      // Warm brown hair -> recolor to chosen hair color
+      const shade = 0.5 + lum * 0.85;
+      d[i] = Math.min(255, Math.round(hair.rgb[0] * shade));
+      d[i + 1] = Math.min(255, Math.round(hair.rgb[1] * shade));
+      d[i + 2] = Math.min(255, Math.round(hair.rgb[2] * shade));
+    }
+  }
+  octx.putImageData(imgData, 0, 0);
+
+  // Draw cape & hat overlays on walk rows (8..11)
+  for (let dirRow = 0; dirRow < 4; dirRow++) {
+    const row = WALK_START_ROW + dirRow;
+    for (let col = 0; col < WALK_FRAMES; col++) {
+      const fx = col * FRAME_SIZE;
+      const fy = row * FRAME_SIZE;
+
+      if (cape.color && dirRow !== 2) {
+        octx.fillStyle = cape.color;
+        octx.fillRect(fx + 22, fy + 30, 20, 22);
+      }
+      if (hat.type === "cap") {
+        octx.fillStyle = hat.color;
+        octx.fillRect(fx + 22, fy + 11, 20, 7);
+        octx.fillRect(fx + 20, fy + 16, 24, 3);
+      } else if (hat.type === "wizard") {
+        octx.fillStyle = hat.color;
+        octx.fillRect(fx + 18, fy + 15, 28, 4);
+        octx.beginPath();
+        octx.moveTo(fx + 22, fy + 15);
+        octx.lineTo(fx + 32, fy + 2);
+        octx.lineTo(fx + 42, fy + 15);
+        octx.fill();
+      } else if (hat.type === "bandana") {
+        octx.fillStyle = hat.color;
+        octx.fillRect(fx + 22, fy + 13, 20, 5);
+      } else if (hat.type === "crown") {
+        octx.fillStyle = hat.color;
+        octx.fillRect(fx + 23, fy + 11, 18, 4);
+        octx.fillRect(fx + 24, fy + 8, 3, 3);
+        octx.fillRect(fx + 31, fy + 7, 3, 4);
+        octx.fillRect(fx + 37, fy + 8, 3, 3);
+      }
+    }
+  }
+  return off;
 }
 
 class Character {
@@ -181,38 +312,64 @@ function collidesAny(rect, list) {
   return list.some((r) => rectsCollide(rect, r));
 }
 
-function getMemoryKey(name) {
-  return `ai_village_chat_${name}`;
-}
-
 function loadChat(name) {
   try {
-    return JSON.parse(localStorage.getItem(getMemoryKey(name)) || "[]");
+    return JSON.parse(localStorage.getItem(`ai_village_chat_${name}`) || "[]");
   } catch {
     return [];
   }
 }
 
 function saveChat(name, history) {
-  localStorage.setItem(getMemoryKey(name), JSON.stringify(history.slice(-12)));
+  localStorage.setItem(`ai_village_chat_${name}`, JSON.stringify(history.slice(-20)));
 }
 
-function medievalFallbackReply(npc, text, playerName) {
+function smartFallbackReply(npc, text, playerName) {
   const lower = text.toLowerCase();
-  const modernWords = ["google", "internet", "phone", "computer", "ai", "car", "plane", "tv", "youtube", "wifi"];
+  const modernWords = ["google", "internet", "iphone", "phone", "computer", "laptop", "car", "airplane", "tv", "youtube", "wifi"];
   if (modernWords.some((w) => lower.includes(w))) {
     const guesses = {
-      Blacksmith: `'${text}'? Never heard of such a thing, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
-      Wizard: `Hmm, '${text}'... I have never seen that in any ancient tome. Perhaps it is a distant scrying crystal or a forgotten spell?`,
+      Blacksmith: `'${text}'? Never heard of it, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
+      Wizard: `Hmm, '${text}'... I have never seen that in any arcane tome. Perhaps it is a distant scrying crystal?`,
       Witch: `'${text}'? No herb or charm in my satchel goes by that name, ${playerName}.`,
       Fisherwoman: `'${text}'? Never caught anything by that name in this river, ${playerName}. Is it a kind of bait?`,
       Fisherman: `'${text}'? Sounds like a strange tide or a fish from deeper waters than I sail.`,
-      Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}? We don't have it in our fields.`,
-      Guard: `'${text}'? Never seen that banner or weapon at the village gates, ${playerName}.`,
+      Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}?`,
+      Guard: `'${text}'? Never seen that banner or weapon at our gates, ${playerName}.`,
     };
-    return guesses[npc.role] || `'${text}'? I've never heard of such a thing in our village, ${playerName}.`;
+    return guesses[npc.role] || `'${text}'? I've never heard of that in our village, ${playerName}. What does it do?`;
   }
-  return `Well met, ${playerName}! As the village ${npc.role}, I'm always busy here. What else brings you by?`;
+
+  if (lower.includes("magic") || lower.includes("mgic") || lower.includes("spell")) {
+    if (npc.role === "Wizard" || npc.role === "Witch") {
+      return `Aye, ${playerName}! I weave starlight wards, scrying charms, and fire sparks—though the elders warn not to cast indoors.`;
+    }
+    return `Magic? Leave that to Aldric the Wizard, ${playerName}—I stick to my work as the village ${npc.role}!`;
+  }
+
+  if (lower.includes("who") || lower.includes("name") || lower.includes("job") || lower.includes("do you do")) {
+    return `I'm ${npc.name}, the village ${npc.role}. If you need help around town, just ask!`;
+  }
+
+  if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
+    return `Good day, ${playerName}! Quiet morning here in the village—what brings you to see a ${npc.role}?`;
+  }
+
+  const roleLines = {
+    Blacksmith: `The forge is running hot today, ${playerName}. Need a blade sharpened or horseshoes mended?`,
+    Wizard: `The stars shifted strangely last night, ${playerName}. Tell me more of what you seek.`,
+    Witch: `My cauldron's simmering with moonleaf tea, ${playerName}. Speak plainly—what's on your mind?`,
+    Merchant: `I've got fine cloth and spices from the southern road, ${playerName}. Looking to trade?`,
+    Farmer: `If the rain holds off until dusk, the wheat harvest will be our best yet, ${playerName}!`,
+    Guard: `All roads into the village look clear today, ${playerName}. Stay out of trouble.`,
+    Healer: `You look well enough, ${playerName}, though a sprig of chamomile never hurts after long travel.`,
+    Innkeeper: `Pull up a chair sometime, ${playerName}—there's warm stew and fresh ale at the inn!`,
+    Elder: `I've watched this village grow for sixty summers, ${playerName}. Every traveler leaves a mark.`,
+    Fisherwoman: `The river trout are biting near the bend today, ${playerName}!`,
+    Fisherman: `Patience is everything by the water, ${playerName}.`,
+    Hunter: `Fresh deer tracks near the north pines, ${playerName}. Keep your eyes sharp.`,
+  };
+  return roleLines[npc.role] || `Interesting thought, ${playerName}. Around here, we take each day as it comes.`;
 }
 
 async function generateReply(npc, text, rosterSummary, playerName) {
@@ -223,12 +380,11 @@ async function generateReply(npc, text, rosterSummary, playerName) {
   if (webllmEngine) {
     const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
     const systemPrompt =
-      `You are ${npc.name}, the ${npc.role} in a pre-industrial medieval fantasy village.\n` +
-      `The player is named ${playerName}. ${personality}\n` +
+      `You are ${npc.name}, the ${npc.role} in a medieval fantasy village.\n` +
+      `You are speaking with ${playerName}. ${personality}\n` +
       `Other villagers:\n${rosterSummary}\n` +
-      `Rules: Never mention modern technology (Google, internet, phones, computers, cars). ` +
-      `If asked about modern things, act confused and guess what it is using your profession (${npc.role}). ` +
-      `Reply in 1 to 2 short sentences.`;
+      `Guidelines: Answer the player's actual question or comment directly and naturally in 1 to 2 short sentences. ` +
+      `Stay in your medieval fantasy world; if they mention an unfamiliar word, ask what it means or guess based on your craft.`;
 
     const messages = [{ role: "system", content: systemPrompt }];
     for (const m of history.slice(-8)) {
@@ -246,62 +402,129 @@ async function generateReply(npc, text, rosterSummary, playerName) {
     }
   }
   if (!reply) {
-    reply = medievalFallbackReply(npc, text, playerName);
+    reply = smartFallbackReply(npc, text, playerName);
   }
   history.push({ sender: "npc", text: reply });
   saveChat(npc.name, history);
   return reply;
 }
 
-btnAi.addEventListener("click", async () => {
-  if (webllmEngine) return;
+async function initBrowserAI() {
+  if (webllmEngine || aiLoading) return;
   if (!navigator.gpu) {
-    aiStatus.textContent = "WebGPU unavailable (using fallback)";
+    aiStatus.textContent = "Smart Fallback Active (No WebGPU)";
+    btnAi.classList.add("hidden");
     return;
   }
+  aiLoading = true;
   btnAi.disabled = true;
-  aiStatus.textContent = "Loading Qwen2.5-0.5B...";
+  aiStatus.textContent = "Loading Browser AI (Qwen)...";
   try {
     const webllm = await import("https://esm.run/@mlc-ai/web-llm");
     webllmEngine = await webllm.CreateMLCEngine("Qwen2.5-0.5B-Instruct-q4f16_1-MLC", {
       initProgressCallback: (p) => {
-        aiStatus.textContent = p.text || "Loading model...";
+        aiStatus.textContent = p.text ? p.text.slice(0, 42) : "Loading Qwen...";
       },
     });
-    aiStatus.textContent = "Browser AI Ready (Qwen2.5-0.5B)";
-  } catch (err) {
-    aiStatus.textContent = "AI load failed (using fallback)";
+    aiStatus.textContent = "Browser AI Ready (Qwen2.5)";
+    btnAi.classList.add("hidden");
+  } catch {
+    aiStatus.textContent = "Smart Fallback Active";
     btnAi.disabled = false;
+  } finally {
+    aiLoading = false;
   }
-});
+}
+
+btnAi.addEventListener("click", initBrowserAI);
 
 async function main() {
   const manifest = await (await fetch("villagers.json")).json();
   const entries = manifest.villagers || [];
 
-  const playerDefaultSheet = await loadImage("assets/characters/lpc_test.png");
+  const playerBaseSheet = await loadImage("assets/characters/lpc_test.png");
   const npcSheets = await Promise.all(entries.map((e) => loadImage(e.sprite)));
 
-  // Populate customizer dropdown
-  const spriteOptions = [{ label: "Default Traveler", sheet: playerDefaultSheet, path: "assets/characters/lpc_test.png" }];
-  entries.forEach((e, i) => {
-    spriteOptions.push({ label: `${e.name} Style (${formatOccupation(e.role, e.gender)})`, sheet: npcSheets[i], path: e.sprite });
-  });
-  spriteOptions.forEach((opt, idx) => {
-    const o = document.createElement("option");
-    o.value = String(idx);
-    o.textContent = opt.label;
-    custSprite.appendChild(o);
+  function fillSelect(el, list) {
+    el.innerHTML = "";
+    list.forEach((item, i) => {
+      const o = document.createElement("option");
+      o.value = String(i);
+      o.textContent = item.label;
+      el.appendChild(o);
+    });
+  }
+
+  fillSelect(custSkin, SKIN_PRESETS);
+  fillSelect(custHair, HAIR_PRESETS);
+  fillSelect(custOutfit, OUTFIT_PRESETS);
+  fillSelect(custHat, HAT_PRESETS);
+  fillSelect(custCape, CAPE_PRESETS);
+
+  const savedCfg = JSON.parse(localStorage.getItem("ai_village_player_v2") || "{}");
+  const playerCfg = {
+    name: savedCfg.name || "Traveler",
+    skin: Number(savedCfg.skin || 0),
+    hair: Number(savedCfg.hair || 0),
+    outfit: Number(savedCfg.outfit || 1),
+    hat: Number(savedCfg.hat || 0),
+    cape: Number(savedCfg.cape || 0),
+  };
+
+  function syncModalFromCfg(cfg) {
+    custName.value = cfg.name;
+    custSkin.value = String(cfg.skin);
+    custHair.value = String(cfg.hair);
+    custOutfit.value = String(cfg.outfit);
+    custHat.value = String(cfg.hat);
+    custCape.value = String(cfg.cape);
+  }
+
+  function readModalCfg() {
+    return {
+      name: custName.value.trim() || "Traveler",
+      skin: Number(custSkin.value || 0),
+      hair: Number(custHair.value || 0),
+      outfit: Number(custOutfit.value || 0),
+      hat: Number(custHat.value || 0),
+      cape: Number(custCape.value || 0),
+    };
+  }
+
+  function renderPreview() {
+    const previewSheet = buildCustomPlayerSheet(playerBaseSheet, readModalCfg());
+    const pctx = custPreview.getContext("2d");
+    pctx.imageSmoothingEnabled = false;
+    pctx.clearRect(0, 0, custPreview.width, custPreview.height);
+    pctx.drawImage(
+      previewSheet,
+      0, (WALK_START_ROW + 2) * FRAME_SIZE, FRAME_SIZE, FRAME_SIZE,
+      16, 16, 64, 64
+    );
+  }
+
+  [custName, custSkin, custHair, custOutfit, custHat, custCape].forEach((el) => {
+    el.addEventListener("change", renderPreview);
   });
 
-  const savedPlayer = JSON.parse(localStorage.getItem("ai_village_player") || "{}");
-  const playerName = savedPlayer.name || "Traveler";
-  const spriteIdx = Number(savedPlayer.spriteIdx || 0);
-  custName.value = playerName;
-  custSprite.value = String(spriteIdx);
-  playerLabel.textContent = playerName;
+  custRandom.addEventListener("click", () => {
+    syncModalFromCfg({
+      name: custName.value.trim() || "Traveler",
+      skin: Math.floor(Math.random() * SKIN_PRESETS.length),
+      hair: Math.floor(Math.random() * HAIR_PRESETS.length),
+      outfit: Math.floor(Math.random() * OUTFIT_PRESETS.length),
+      hat: Math.floor(Math.random() * HAT_PRESETS.length),
+      cape: Math.floor(Math.random() * CAPE_PRESETS.length),
+    });
+    renderPreview();
+  });
 
-  const player = new Character(400, 400, spriteOptions[spriteIdx]?.sheet || playerDefaultSheet, playerName, "Traveler", false);
+  syncModalFromCfg(playerCfg);
+  playerLabel.textContent = playerCfg.name;
+
+  const initialSheet = buildCustomPlayerSheet(playerBaseSheet, playerCfg);
+  const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
+
   const npcs = entries.map((e, i) => {
     const role = formatOccupation(e.role, e.gender);
     const [x, y] = NPC_POSITIONS[i % NPC_POSITIONS.length];
@@ -361,17 +584,19 @@ async function main() {
   });
 
   btnCustomize.addEventListener("click", () => {
-    if (!dialogueOpen) custModal.classList.remove("hidden");
+    if (!dialogueOpen) {
+      renderPreview();
+      custModal.classList.remove("hidden");
+    }
   });
   custCancel.addEventListener("click", () => custModal.classList.add("hidden"));
   custSave.addEventListener("click", () => {
-    const newName = custName.value.trim() || "Traveler";
-    const idx = Number(custSprite.value || 0);
-    player.name = newName;
-    player.sheet = spriteOptions[idx]?.sheet || playerDefaultSheet;
+    const nextCfg = readModalCfg();
+    player.name = nextCfg.name;
+    player.sheet = buildCustomPlayerSheet(playerBaseSheet, nextCfg);
     player.hasIdle = hasIdleRows(player.sheet);
-    playerLabel.textContent = newName;
-    localStorage.setItem("ai_village_player", JSON.stringify({ name: newName, spriteIdx: idx }));
+    playerLabel.textContent = nextCfg.name;
+    localStorage.setItem("ai_village_player_v2", JSON.stringify(nextCfg));
     custModal.classList.add("hidden");
   });
 
@@ -388,6 +613,7 @@ async function main() {
       closeDialogue();
       custModal.classList.add("hidden");
     } else if (e.key.toLowerCase() === "c" && !dialogueOpen) {
+      renderPreview();
       custModal.classList.toggle("hidden");
     } else if (e.key.toLowerCase() === "e" && !dialogueOpen && custModal.classList.contains("hidden")) {
       const near = findNearestNpc();
@@ -410,6 +636,9 @@ async function main() {
     }
     return best;
   }
+
+  // Auto-start browser AI if WebGPU is supported
+  initBrowserAI();
 
   let last = performance.now();
   function loop(now) {
@@ -532,4 +761,3 @@ async function main() {
 }
 
 main();
-

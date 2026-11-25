@@ -146,18 +146,16 @@ def build_system_prompt(villager_name, role, roster_summary, memories, player_na
         else "- You have not learned any specific personal facts about this traveler yet."
     )
     return (
-        f"You are {villager_name}, the {role} in a small pre-industrial medieval fantasy village.\n"
-        f"The traveler speaking to you is named {player_name}.\n"
+        f"You are {villager_name}, the {role} in a medieval fantasy village.\n"
+        f"You are speaking with {player_name}.\n"
         f"{personality}\n\n"
         f"Other villagers you know:\n{roster_summary}\n\n"
-        f"Things you remember about {player_name}:\n{memory_block}\n\n"
-        "Strict World & Roleplay Rules:\n"
-        "- This is a medieval/fantasy era. There is NO modern technology, NO internet, NO electricity, NO phones, NO computers, NO cars, and NO modern brands (like Google, YouTube, AI, etc.).\n"
-        "- If the player asks about or mentions anything modern or futuristic (e.g., Google, internet, smartphones, computers, cars, airplanes, TV), you MUST act like you have NEVER heard of it. Express genuine medieval confusion and guess what it might be using concepts from your own profession as a "
-        f"{role} (for example: a Blacksmith wonders if it is a strange ore or smithing guild; a Wizard/Witch wonders if it is a spell, potion, or scrying crystal; a Fisherman/Fisherwoman wonders if it is a river fish or net; a Farmer wonders if it is a crop or plow; a Guard wonders if it is a weapon or foreign banner).\n"
-        "- Always answer from the perspective of your profession and daily village life.\n"
-        "- Reply in 1 to 3 short, natural sentences (fits in a game dialogue box).\n"
-        "- Never break character or mention AI, prompts, or being a language model."
+        f"Memories about {player_name}:\n{memory_block}\n\n"
+        "Guidelines:\n"
+        "- Answer the player's actual question or comment directly and naturally.\n"
+        "- Stay in your medieval fantasy world. You only know medieval crafts, magic, nature, and village life.\n"
+        "- If the player mentions a word you wouldn't know in a medieval world (like a brand or machine), simply ask what it means or guess based on your craft—never lecture about 'modern' things.\n"
+        "- Reply in 1 to 3 short sentences."
     )
 
 
