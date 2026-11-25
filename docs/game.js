@@ -40,46 +40,60 @@ const ROLE_PERSONALITIES = {
   Villager: "You are friendly, curious, and enjoy chatting about daily village life.",
 };
 
-const SKIN_PRESETS = [
-  { label: "Fair", shift: [1.0, 1.0, 1.0] },
-  { label: "Olive", shift: [0.92, 0.88, 0.72] },
-  { label: "Bronze", shift: [0.85, 0.68, 0.50] },
-  { label: "Deep Brown", shift: [0.62, 0.44, 0.32] },
-  { label: "Pale", shift: [1.06, 1.02, 1.04] },
+const LPC_SKINS = [
+  { label: "Light", id: "light" },
+  { label: "Olive", id: "olive" },
+  { label: "Bronze", id: "bronze" },
+  { label: "Brown", id: "brown" },
 ];
 
-const HAIR_PRESETS = [
-  { label: "Chestnut", rgb: [115, 68, 42] },
-  { label: "Raven Black", rgb: [38, 38, 48] },
-  { label: "Golden Blonde", rgb: [215, 178, 82] },
-  { label: "Fiery Ginger", rgb: [196, 86, 40] },
-  { label: "Silver", rgb: [208, 214, 224] },
-  { label: "Emerald", rgb: [56, 148, 96] },
+const LPC_HAIR = {
+  male: [
+    { label: "Bedhead (Black)", file: "male_hair_bedhead_black.png" },
+    { label: "Cowlick (Chestnut)", file: "male_hair_cowlick_chestnut.png" },
+    { label: "Curly Short (Ginger)", file: "male_hair_curly_ginger.png" },
+    { label: "Half-Messy (Sandy)", file: "male_hair_messy_sandy.png" },
+    { label: "Ponytail (Ash)", file: "male_hair_ponytail_ash.png" },
+  ],
+  female: [
+    { label: "Ponytail (Chestnut)", file: "female_hair_ponytail_chestnut.png" },
+    { label: "Bangs (Black)", file: "female_hair_bangs_black.png" },
+    { label: "Curly Long (Ginger)", file: "female_hair_curly_ginger.png" },
+    { label: "Pigtails (Sandy)", file: "female_hair_pigtails_sandy.png" },
+    { label: "Topknot (Ash)", file: "female_hair_topknot_ash.png" },
+  ],
+};
+
+const LPC_SHIRTS = [
+  { label: "Red Tunic", key: "shirt_tunic_red" },
+  { label: "Teal Tunic", key: "shirt_tunic_teal" },
+  { label: "Maroon V-Neck", key: "shirt_vneck_maroon" },
+  { label: "Blue-Gray V-Neck", key: "shirt_vneck_blue" },
+  { label: "White Cardigan", key: "shirt_cardigan_white" },
 ];
 
-const OUTFIT_PRESETS = [
-  { label: "Crimson Tunic", rgb: [175, 52, 56] },
-  { label: "Royal Blue", rgb: [52, 92, 175] },
-  { label: "Forest Green", rgb: [54, 132, 72] },
-  { label: "Arcane Purple", rgb: [122, 64, 168] },
-  { label: "Golden Tunic", rgb: [192, 148, 48] },
-  { label: "Obsidian", rgb: [52, 54, 64] },
-];
+const LPC_LEGS = {
+  male: [
+    { label: "Charcoal Pants", file: "male_legs_pants_charcoal.png" },
+    { label: "Blue Pants", file: "male_legs_pants_blue.png" },
+    { label: "Oak Pants", file: "male_legs_pants_oak.png" },
+    { label: "Tan Cuffed Pants", file: "male_legs_cuffed_tan.png" },
+  ],
+  female: [
+    { label: "Charcoal Pants", file: "female_legs_pants_charcoal.png" },
+    { label: "Blue Pants", file: "female_legs_pants_blue.png" },
+    { label: "Sky Skirt", file: "female_legs_skirt_sky.png" },
+    { label: "White Skirt", file: "female_legs_skirt_white.png" },
+  ],
+};
 
-const HAT_PRESETS = [
-  { label: "None", type: "none" },
-  { label: "Adventurer Cap", type: "cap", color: "#3d6b4b" },
-  { label: "Wizard Hat", type: "wizard", color: "#433478" },
-  { label: "Red Bandana", type: "bandana", color: "#b83b3b" },
-  { label: "Golden Crown", type: "crown", color: "#e8be3a" },
-];
-
-const CAPE_PRESETS = [
-  { label: "None", color: null },
-  { label: "Crimson Cloak", color: "#8c262c" },
-  { label: "Forest Cloak", color: "#2c663c" },
-  { label: "Midnight Cloak", color: "#282e47" },
-  { label: "Royal Purple", color: "#5e2c7a" },
+const LPC_HATS = [
+  { label: "None", file: null },
+  { label: "Bandana", file: "shared_hat_bandana.png" },
+  { label: "Kerchief", file: "shared_hat_kerchief.png" },
+  { label: "Leather Cap", file: "shared_hat_cap_leather.png" },
+  { label: "Bowler Hat", file: "shared_hat_bowler.png" },
+  { label: "Wizard Hat", file: "shared_hat_wizard.png" },
 ];
 
 const canvas = document.getElementById("game");
@@ -96,16 +110,26 @@ const btnCustomize = document.getElementById("btn-customize");
 const custModal = document.getElementById("customizer-modal");
 const custPreview = document.getElementById("cust-preview");
 const custName = document.getElementById("cust-name");
+const custGender = document.getElementById("cust-gender");
 const custSkin = document.getElementById("cust-skin");
 const custHair = document.getElementById("cust-hair");
-const custOutfit = document.getElementById("cust-outfit");
+const custShirt = document.getElementById("cust-shirt");
+const custLegs = document.getElementById("cust-legs");
 const custHat = document.getElementById("cust-hat");
-const custCape = document.getElementById("cust-cape");
 const custRandom = document.getElementById("cust-random");
 const custSave = document.getElementById("cust-save");
 const custCancel = document.getElementById("cust-cancel");
 const btnAi = document.getElementById("btn-ai");
 const aiStatus = document.getElementById("ai-status");
+
+const lpcCache = new Map();
+async function loadLpcLayer(filename) {
+  if (!filename) return null;
+  if (lpcCache.has(filename)) return lpcCache.get(filename);
+  const img = await loadImage(`assets/lpc_layers/${filename}`);
+  lpcCache.set(filename, img);
+  return img;
+}
 
 const keys = new Set();
 let webllmEngine = null;
@@ -144,84 +168,30 @@ function hasIdleRows(img) {
   return false;
 }
 
-function buildCustomPlayerSheet(baseSheet, cfg) {
+async function buildCustomLpcSheet(cfg) {
+  const g = cfg.gender === "female" ? "female" : "male";
+  const skin = LPC_SKINS[cfg.skin % LPC_SKINS.length].id;
+  const hairFile = LPC_HAIR[g][cfg.hair % LPC_HAIR[g].length].file;
+  const shirtKey = LPC_SHIRTS[cfg.shirt % LPC_SHIRTS.length].key;
+  const legsFile = LPC_LEGS[g][cfg.legs % LPC_LEGS[g].length].file;
+  const hatFile = LPC_HATS[cfg.hat % LPC_HATS.length].file;
+
+  const layerFiles = [
+    `base_${g}_${skin}.png`,
+    legsFile,
+    "shared_boots_oak.png",
+    `${g}_${shirtKey}.png`,
+    hairFile,
+    hatFile,
+  ].filter(Boolean);
+
+  const imgs = await Promise.all(layerFiles.map(loadLpcLayer));
   const off = document.createElement("canvas");
-  off.width = baseSheet.width;
-  off.height = baseSheet.height;
+  off.width = imgs[0].width;
+  off.height = imgs[0].height;
   const octx = off.getContext("2d");
-  octx.drawImage(baseSheet, 0, 0);
-
-  const skin = SKIN_PRESETS[cfg.skin % SKIN_PRESETS.length];
-  const hair = HAIR_PRESETS[cfg.hair % HAIR_PRESETS.length];
-  const outfit = OUTFIT_PRESETS[cfg.outfit % OUTFIT_PRESETS.length];
-  const hat = HAT_PRESETS[cfg.hat % HAT_PRESETS.length];
-  const cape = CAPE_PRESETS[cfg.cape % CAPE_PRESETS.length];
-
-  // Recolor skin, hair, and shirt pixels per frame
-  const imgData = octx.getImageData(0, 0, off.width, off.height);
-  const d = imgData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    if (d[i + 3] === 0) continue;
-    const r = d[i], g = d[i + 1], b = d[i + 2];
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const lum = (r * 0.3 + g * 0.59 + b * 0.11) / 255;
-
-    // Warm peach skin tones -> tint with skin preset
-    if (r > g + 12 && g > b + 6 && r > 130 && max - min < 95) {
-      d[i] = Math.min(255, Math.round(r * skin.shift[0]));
-      d[i + 1] = Math.min(255, Math.round(g * skin.shift[1]));
-      d[i + 2] = Math.min(255, Math.round(b * skin.shift[2]));
-    } else if (b > r + 15 && b > g) {
-      // Blue/cool shirt pixels -> recolor to chosen outfit color
-      const shade = 0.55 + lum * 0.75;
-      d[i] = Math.min(255, Math.round(outfit.rgb[0] * shade));
-      d[i + 1] = Math.min(255, Math.round(outfit.rgb[1] * shade));
-      d[i + 2] = Math.min(255, Math.round(outfit.rgb[2] * shade));
-    } else if (r > b + 20 && g > 50 && g < 160 && r < 180) {
-      // Warm brown hair -> recolor to chosen hair color
-      const shade = 0.5 + lum * 0.85;
-      d[i] = Math.min(255, Math.round(hair.rgb[0] * shade));
-      d[i + 1] = Math.min(255, Math.round(hair.rgb[1] * shade));
-      d[i + 2] = Math.min(255, Math.round(hair.rgb[2] * shade));
-    }
-  }
-  octx.putImageData(imgData, 0, 0);
-
-  // Draw cape & hat overlays on walk rows (8..11)
-  for (let dirRow = 0; dirRow < 4; dirRow++) {
-    const row = WALK_START_ROW + dirRow;
-    for (let col = 0; col < WALK_FRAMES; col++) {
-      const fx = col * FRAME_SIZE;
-      const fy = row * FRAME_SIZE;
-
-      if (cape.color && dirRow !== 2) {
-        octx.fillStyle = cape.color;
-        octx.fillRect(fx + 22, fy + 30, 20, 22);
-      }
-      if (hat.type === "cap") {
-        octx.fillStyle = hat.color;
-        octx.fillRect(fx + 22, fy + 11, 20, 7);
-        octx.fillRect(fx + 20, fy + 16, 24, 3);
-      } else if (hat.type === "wizard") {
-        octx.fillStyle = hat.color;
-        octx.fillRect(fx + 18, fy + 15, 28, 4);
-        octx.beginPath();
-        octx.moveTo(fx + 22, fy + 15);
-        octx.lineTo(fx + 32, fy + 2);
-        octx.lineTo(fx + 42, fy + 15);
-        octx.fill();
-      } else if (hat.type === "bandana") {
-        octx.fillStyle = hat.color;
-        octx.fillRect(fx + 22, fy + 13, 20, 5);
-      } else if (hat.type === "crown") {
-        octx.fillStyle = hat.color;
-        octx.fillRect(fx + 23, fy + 11, 18, 4);
-        octx.fillRect(fx + 24, fy + 8, 3, 3);
-        octx.fillRect(fx + 31, fy + 7, 3, 4);
-        octx.fillRect(fx + 37, fy + 8, 3, 3);
-      }
-    }
+  for (const img of imgs) {
+    if (img) octx.drawImage(img, 0, 0);
   }
   return off;
 }
@@ -405,10 +375,12 @@ async function generateReply(npc, text, rosterSummary, playerName) {
   if (webllmEngine) {
     const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
     const systemPrompt =
-      `You are ${npc.name}, a ${npc.role} in a medieval fantasy village.\n` +
-      `You are chatting with ${playerName}. ${personality}\n` +
+      `You are ${npc.name}, a real person living in a medieval fantasy village who works as the ${npc.role}.\n` +
+      `You are chatting casually with ${playerName}. ${personality}\n` +
       `Other villagers: ${rosterSummary.replace(/\n/g, ", ")}.\n` +
-      `Reply directly and naturally to what ${playerName} just said in 1-2 short sentences. Stay in character.`;
+      `How to speak: Talk like a warm, down-to-earth human—NOT a customer-service bot or assistant. ` +
+      `You have personal opinions, feelings, hobbies, and humor outside of work. If asked about dogs, food, boredom, or everyday life, answer naturally as a person (never say 'I am a smith, not related to dogs' or 'feel free to ask'). ` +
+      `Reply in 1-2 natural sentences.`;
 
     const messages = [{ role: "system", content: systemPrompt }];
     for (const m of history.slice(-8)) {
@@ -417,7 +389,9 @@ async function generateReply(npc, text, rosterSummary, playerName) {
     try {
       const out = await webllmEngine.chat.completions.create({
         messages,
-        temperature: 0.75,
+        temperature: 0.85,
+        presence_penalty: 0.4,
+        frequency_penalty: 0.4,
         max_tokens: 90,
       });
       reply = out.choices?.[0]?.message?.content?.trim() || "";
@@ -477,88 +451,103 @@ async function main() {
   const manifest = await (await fetch("villagers.json")).json();
   const entries = manifest.villagers || [];
 
-  const playerBaseSheet = await loadImage("assets/characters/lpc_test.png");
   const npcSheets = await Promise.all(entries.map((e) => loadImage(e.sprite)));
 
-    function fillSelect(el, list) {
-      el.innerHTML = "";
-      list.forEach((item, i) => {
-        const o = document.createElement("option");
-        o.value = String(i);
-        o.textContent = item.label;
-        el.appendChild(o);
-      });
-    }
-
-    fillSelect(custSkin, SKIN_PRESETS);
-    fillSelect(custHair, HAIR_PRESETS);
-    fillSelect(custOutfit, OUTFIT_PRESETS);
-    fillSelect(custHat, HAT_PRESETS);
-    fillSelect(custCape, CAPE_PRESETS);
-
-    const savedCfg = JSON.parse(localStorage.getItem("ai_village_player_v2") || "{}");
-    const playerCfg = {
-      name: savedCfg.name || "Traveler",
-      skin: Number(savedCfg.skin || 0),
-      hair: Number(savedCfg.hair || 0),
-      outfit: Number(savedCfg.outfit || 1),
-      hat: Number(savedCfg.hat || 0),
-      cape: Number(savedCfg.cape || 0),
-    };
-
-    function syncModalFromCfg(cfg) {
-      custName.value = cfg.name;
-      custSkin.value = String(cfg.skin);
-      custHair.value = String(cfg.hair);
-      custOutfit.value = String(cfg.outfit);
-      custHat.value = String(cfg.hat);
-      custCape.value = String(cfg.cape);
-    }
-
-    function readModalCfg() {
-      return {
-        name: custName.value.trim() || "Traveler",
-        skin: Number(custSkin.value || 0),
-        hair: Number(custHair.value || 0),
-        outfit: Number(custOutfit.value || 0),
-        hat: Number(custHat.value || 0),
-        cape: Number(custCape.value || 0),
-      };
-    }
-
-    function renderPreview() {
-      const previewSheet = buildCustomPlayerSheet(playerBaseSheet, readModalCfg());
-      const pctx = custPreview.getContext("2d");
-      pctx.imageSmoothingEnabled = false;
-      pctx.clearRect(0, 0, custPreview.width, custPreview.height);
-      pctx.drawImage(
-        previewSheet,
-        0, (WALK_START_ROW + 2) * FRAME_SIZE, FRAME_SIZE, FRAME_SIZE,
-        16, 16, 64, 64
-      );
-    }
-
-    [custName, custSkin, custHair, custOutfit, custHat, custCape].forEach((el) => {
-      el.addEventListener("change", renderPreview);
+  function fillSelect(el, list) {
+    el.innerHTML = "";
+    list.forEach((item, i) => {
+      const o = document.createElement("option");
+      o.value = String(i);
+      o.textContent = item.label;
+      el.appendChild(o);
     });
+  }
 
-      custRandom.addEventListener("click", () => {
-        syncModalFromCfg({
-          name: custName.value.trim() || "Traveler",
-          skin: Math.floor(Math.random() * SKIN_PRESETS.length),
-          hair: Math.floor(Math.random() * HAIR_PRESETS.length),
-          outfit: Math.floor(Math.random() * OUTFIT_PRESETS.length),
-          hat: Math.floor(Math.random() * HAT_PRESETS.length),
-          cape: Math.floor(Math.random() * CAPE_PRESETS.length),
-        });
-        renderPreview();
-      });
+  function refreshGenderedOptions(gender) {
+    fillSelect(custHair, LPC_HAIR[gender]);
+    fillSelect(custLegs, LPC_LEGS[gender]);
+  }
 
-      syncModalFromCfg(playerCfg);
-      playerLabel.textContent = playerCfg.name;
+  fillSelect(custSkin, LPC_SKINS);
+  fillSelect(custShirt, LPC_SHIRTS);
+  fillSelect(custHat, LPC_HATS);
 
-      const initialSheet = buildCustomPlayerSheet(playerBaseSheet, playerCfg);
-      const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
+  const savedCfg = JSON.parse(localStorage.getItem("ai_village_player_v3") || "{}");
+  const playerCfg = {
+    name: savedCfg.name || "Traveler",
+    gender: savedCfg.gender === "female" ? "female" : "male",
+    skin: Number(savedCfg.skin || 0),
+    hair: Number(savedCfg.hair || 0),
+    shirt: Number(savedCfg.shirt || 0),
+    legs: Number(savedCfg.legs || 0),
+    hat: Number(savedCfg.hat || 0),
+  };
+
+  function syncModalFromCfg(cfg) {
+    custName.value = cfg.name;
+    custGender.value = cfg.gender;
+    refreshGenderedOptions(cfg.gender);
+    custSkin.value = String(cfg.skin);
+    custHair.value = String(cfg.hair);
+    custShirt.value = String(cfg.shirt);
+    custLegs.value = String(cfg.legs);
+    custHat.value = String(cfg.hat);
+  }
+
+  function readModalCfg() {
+    return {
+      name: custName.value.trim() || "Traveler",
+      gender: custGender.value === "female" ? "female" : "male",
+      skin: Number(custSkin.value || 0),
+      hair: Number(custHair.value || 0),
+      shirt: Number(custShirt.value || 0),
+      legs: Number(custLegs.value || 0),
+      hat: Number(custHat.value || 0),
+    };
+  }
+
+  async function renderPreview() {
+    const previewSheet = await buildCustomLpcSheet(readModalCfg());
+    const pctx = custPreview.getContext("2d");
+    pctx.imageSmoothingEnabled = false;
+    pctx.clearRect(0, 0, custPreview.width, custPreview.height);
+    pctx.drawImage(
+      previewSheet,
+      0, (WALK_START_ROW + 2) * FRAME_SIZE, FRAME_SIZE, FRAME_SIZE,
+      16, 16, 64, 64
+    );
+  }
+
+  custGender.addEventListener("change", () => {
+    refreshGenderedOptions(custGender.value);
+    custHair.value = "0";
+    custLegs.value = "0";
+    renderPreview();
+  });
+
+  [custName, custSkin, custHair, custShirt, custLegs, custHat].forEach((el) => {
+    el.addEventListener("change", renderPreview);
+  });
+
+  custRandom.addEventListener("click", () => {
+    const g = Math.random() < 0.5 ? "male" : "female";
+    syncModalFromCfg({
+      name: custName.value.trim() || "Traveler",
+      gender: g,
+      skin: Math.floor(Math.random() * LPC_SKINS.length),
+      hair: Math.floor(Math.random() * LPC_HAIR[g].length),
+      shirt: Math.floor(Math.random() * LPC_SHIRTS.length),
+      legs: Math.floor(Math.random() * LPC_LEGS[g].length),
+      hat: Math.floor(Math.random() * LPC_HATS.length),
+    });
+    renderPreview();
+  });
+
+  syncModalFromCfg(playerCfg);
+  playerLabel.textContent = playerCfg.name;
+
+  const initialSheet = await buildCustomLpcSheet(playerCfg);
+  const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
 
       const npcs = entries.map((e, i) => {
         const role = formatOccupation(e.role, e.gender);
@@ -631,13 +620,13 @@ async function main() {
         }
       });
       custCancel.addEventListener("click", () => custModal.classList.add("hidden"));
-      custSave.addEventListener("click", () => {
+      custSave.addEventListener("click", async () => {
         const nextCfg = readModalCfg();
         player.name = nextCfg.name;
-        player.sheet = buildCustomPlayerSheet(playerBaseSheet, nextCfg);
+        player.sheet = await buildCustomLpcSheet(nextCfg);
         player.hasIdle = hasIdleRows(player.sheet);
         playerLabel.textContent = nextCfg.name;
-        localStorage.setItem("ai_village_player_v2", JSON.stringify(nextCfg));
+        localStorage.setItem("ai_village_player_v3", JSON.stringify(nextCfg));
         custModal.classList.add("hidden");
       });
 
