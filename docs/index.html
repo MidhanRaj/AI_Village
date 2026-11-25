@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Village</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div class="title">AI Village</div>
+      <div class="controls">
+        <span id="player-label">Traveler</span>
+        <button id="btn-customize" type="button">Customize (C)</button>
+        <button id="btn-ai" type="button">Enable Browser AI (Qwen)</button>
+        <span id="ai-status" class="status">Medieval Fallback Ready</span>
+      </div>
+    </header>
+
+    <div id="stage-wrap">
+      <canvas id="game" width="1000" height="700"></canvas>
+      <div id="prompt" class="hidden"></div>
+
+      <div id="dialogue-box" class="hidden">
+        <div class="dlg-header">
+          <span id="dlg-name"></span>
+          <span class="dlg-hint">ESC to close &bull; Enter to send</span>
+        </div>
+        <div id="dlg-history"></div>
+        <form id="dlg-form">
+          <input id="dlg-input" type="text" maxlength="140" placeholder="Type a message..." autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+      <div id="customizer-modal" class="hidden">
+        <div class="modal-card">
+          <h2>Customize Player</h2>
+          <label>
+            Name
+            <input id="cust-name" type="text" maxlength="18" value="Traveler" />
+          </label>
+          <label>
+            Character Appearance
+            <select id="cust-sprite"></select>
+          </label>
+          <div class="modal-actions">
+            <button id="cust-save" type="button">Save</button>
+            <button id="cust-cancel" type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      WASD / Arrow Keys: Move &bull; E: Talk to Villager &bull; C: Customize Player
+    </footer>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
+

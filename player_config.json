@@ -1,0 +1,10 @@
+{
+  "name": "Traveler",
+  "gender": "female",
+  "skin_idx": 0,
+  "hair_idx": 0,
+  "hair_color_idx": 0,
+  "shirt_idx": 4,
+  "legs_idx": 4,
+  "hat_idx": 0
+}

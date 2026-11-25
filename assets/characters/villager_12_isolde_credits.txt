@@ -1,0 +1,116 @@
+Art from the Universal LPC Spritesheet Character Generator.
+When you use these images, credit the authors below according to the licenses.
+
+Credits screen text (paste it in your game):
+Sprites by: Benjamin K. Smith (BenCreating), Durrani, ElizaWy, Evert, JaidynReiman, Johannes Sjölund (wulax), Matthew Krohn (Makrohn), Matthew Krohn (makrohn), Michael Whitlock (bigbeargames), MuffinElZangano, Nila122, Pierre Vigier (pvigier), Stephen Challener (Redshrike), TheraHedwig, bluecarrot16, drjamgo@hotmail.com
+Sprites from the Liberated Pixel Cup collection on OpenGameArt.org: http://opengameart.org/content/lpc-collection
+License(s): CC-BY, CC-BY-SA, CC0, GPL, OGA-BY
+Detailed credits: villager_12_isolde_credits.txt
+
+------------------------------------------------------------------------
+
+body/bodies/female
+  Notes: see details at https://opengameart.org/content/lpc-character-bases
+  Authors: Benjamin K. Smith (BenCreating), bluecarrot16, TheraHedwig, Evert, MuffinElZangano, Durrani, Pierre Vigier (pvigier), ElizaWy, Matthew Krohn (makrohn), Johannes Sjölund (wulax), Stephen Challener (Redshrike)
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+  https://opengameart.org/content/lpc-ladies
+  https://opengameart.org/content/lpc-7-womens-shirts
+  https://opengameart.org/content/lpc-jump-expanded
+  https://opengameart.org/content/lpc-be-seated
+  https://opengameart.org/content/lpc-revised-character-basics
+  https://gitlab.com/vagabondgame/lpc-characters
+  https://opengameart.org/content/lpc-male-jumping-animation-by-durrani
+  https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle
+
+head/heads/human/female
+  Notes: original head by Redshrike, tweaks by BenCreating, modular version by bluecarrot16
+  Authors: bluecarrot16, Benjamin K. Smith (BenCreating), Stephen Challener (Redshrike)
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/
+  https://opengameart.org/content/lpc-character-bases
+
+hair/parted_side_bangs
+  Authors: JaidynReiman
+  Licenses: OGA-BY 3.0+, CC-BY 3.0+, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-1-hairstyle-2-hair-extensions-3-previously-unofficially-released-hairstyles
+  https://github.com/jrconway3/Universal-LPC-spritesheet/commit/46ddcf05a0e43e7aa6ffd47d350eef0eb529ac24
+
+hair/extensions/ponytails/topknot_long
+  Authors: JaidynReiman
+  Licenses: OGA-BY 3.0+, CC-BY 3.0+, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-1-hairstyle-2-hair-extensions-3-previously-unofficially-released-hairstyles
+
+torso/clothes/longsleeve/longsleeve2_polo
+  Notes: original by ElizaWy; spellcast/thrust/shoot/hurt/male adapted from original by JaidynReiman
+  Authors: ElizaWy, JaidynReiman, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
+  Licenses: OGA-BY 3.0
+  http://opengameart.org/content/lpc-revised-character-basics
+  https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing
+  https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  https://opengameart.org/content/lpc-expanded-simple-shirts
+
+torso/armour/leather
+  Notes: adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman
+  Authors: Johannes Sjölund (wulax), bluecarrot16, JaidynReiman
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+  https://opengameart.org/content/lpc-clothing-updates
+  https://opengameart.org/content/lpc-expanded-armor
+
+torso/armour/leather/female
+  Notes: recolor of torso/armour/leather/female/brown.png, adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman
+  Authors: Michael Whitlock (bigbeargames), Matthew Krohn (makrohn), Johannes Sjölund (wulax), bluecarrot16, JaidynReiman
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+  https://opengameart.org/content/lpc-combat-armor-for-women
+  https://opengameart.org/content/lpc-clothing-updates
+  https://opengameart.org/content/lpc-expanded-armor
+
+cape/solid/fg
+  Authors: bluecarrot16, JaidynReiman
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
+  https://opengameart.org/content/lpc-roman-armor
+  http://opengameart.org/content/lpc-clothing-updates
+
+cape/solid/bg
+  Authors: Nila122, JaidynReiman
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
+  https://opengameart.org/content/lpc-roman-armor
+
+quiver
+  Authors: Johannes Sjölund (wulax)
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+
+legs/pants2
+  Notes: Original bases by Redshrike, thrust/shoot bases by Wulax, original pants by ElizaWy, climb/jump/run/sit/emotes/revised combat by JaidynReiman
+  Authors: ElizaWy, JaidynReiman, Johannes Sjölund (wulax), Stephen Challener (Redshrike)
+  Licenses: OGA-BY 3.0
+  https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing
+  https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  https://opengameart.org/content/lpc-expanded-pants
+
+feet/boots/revised
+  Notes: original by ElizaWy, remaining frames by JaidynReiman
+  Authors: ElizaWy, JaidynReiman, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
+  Licenses: OGA-BY 3.0
+  https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing
+  https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  https://opengameart.org/content/lpc-expanded-socks-shoes
+
+hat/cloth/leather_cap
+  Notes: original by Johannes Sjölund (wulax), female by Matthew Krohn, mapped to all frames w/recolors by JaidynReiman
+  Authors: Johannes Sjölund (wulax), Matthew Krohn (Makrohn), JaidynReiman
+  Licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+  https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+
+weapon/ranged/crossbow
+  Notes: original by drjamgo, modified for v3 character bases and split into layers by bluecarrot16
+  Authors: bluecarrot16, drjamgo@hotmail.com
+  Licenses: CC0
+  https://opengameart.org/content/lpc-crossbow-final

@@ -1,0 +1,561 @@
+{
+    "village_seed": 20261125,
+    "villagers": [
+        {
+            "id": 1,
+            "name": "Elara",
+            "gender": "female",
+            "role": "Blacksmith",
+            "body_type": "female",
+            "seed": 993822629,
+            "filename": "villager_01_elara",
+            "sprite": "assets/characters/villager_01_elara.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "bronze"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female"
+                },
+                {
+                    "id": "hair/short/hair_bangs",
+                    "color": "light_brown"
+                },
+                {
+                    "id": "torso/shirts/shortsleeve/torso_clothes_shortsleeve",
+                    "color": "tan"
+                },
+                {
+                    "id": "torso/aprons/torso_aprons_apron",
+                    "color": "leather"
+                },
+                {
+                    "id": "arms/arms_gloves"
+                },
+                {
+                    "id": "legs/pants/legs_pants",
+                    "color": "charcoal"
+                },
+                {
+                    "id": "feet/boots/feet_boots_basic",
+                    "color": "oak"
+                },
+                {
+                    "id": "headwear/coverings/headbands/hat_headband_kerchief"
+                },
+                {
+                    "id": "tools/tool_hammer"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 2,
+            "name": "Aldric",
+            "gender": "male",
+            "role": "Wizard",
+            "body_type": "male",
+            "seed": 1512959105,
+            "filename": "villager_02_aldric",
+            "sprite": "assets/characters/villager_02_aldric.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "taupe"
+                },
+                {
+                    "id": "head/heads/human/heads_human_male_elderly"
+                },
+                {
+                    "id": "hair/short/hair_cowlick",
+                    "color": "ash"
+                },
+                {
+                    "id": "hair/beards/beards_beard",
+                    "color": "ash"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_vneck",
+                    "color": "maroon"
+                },
+                {
+                    "id": "torso/cape/cape_solid",
+                    "color": "purple"
+                },
+                {
+                    "id": "torso/waist/belt_robe"
+                },
+                {
+                    "id": "legs/pants/legs_pantaloons",
+                    "color": "charcoal"
+                },
+                {
+                    "id": "feet/boots/feet_boots_rim",
+                    "color": "black"
+                },
+                {
+                    "id": "headwear/hats/magic/hat_magic_celestial",
+                    "color": "black"
+                },
+                {
+                    "id": "headwear/accessories/glasses/facial_glasses_round"
+                },
+                {
+                    "id": "weapons/magic/weapon_magic_crystal"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 3,
+            "name": "Luna",
+            "gender": "female",
+            "role": "Merchant",
+            "body_type": "female",
+            "seed": 323375630,
+            "filename": "villager_03_luna",
+            "sprite": "assets/characters/villager_03_luna.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "olive"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female_small"
+                },
+                {
+                    "id": "hair/braids/hair_ponytail2",
+                    "color": "ash"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_buttoned",
+                    "color": "ivory"
+                },
+                {
+                    "id": "torso/vest/torso_clothes_vest",
+                    "color": "maroon"
+                },
+                {
+                    "id": "torso/waist/belt_formal"
+                },
+                {
+                    "id": "legs/pants/legs_formal",
+                    "color": "black"
+                },
+                {
+                    "id": "feet/boots/feet_boots_rim",
+                    "color": "black"
+                },
+                {
+                    "id": "headwear/hats/formal/hat_formal_bowler"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 4,
+            "name": "Edric",
+            "gender": "male",
+            "role": "Farmer",
+            "body_type": "male",
+            "seed": 889236055,
+            "filename": "villager_04_edric",
+            "sprite": "assets/characters/villager_04_edric.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "taupe"
+                },
+                {
+                    "id": "head/heads/human/heads_human_male_plump"
+                },
+                {
+                    "id": "hair/short/hair_bedhead",
+                    "color": "ash"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve",
+                    "color": "orange"
+                },
+                {
+                    "id": "torso/aprons/torso_aprons_suspenders"
+                },
+                {
+                    "id": "legs/pants/legs_pants",
+                    "color": "oak"
+                },
+                {
+                    "id": "feet/boots/feet_boots_fold",
+                    "color": "leather"
+                },
+                {
+                    "id": "headwear/coverings/headbands/hat_headband_kerchief"
+                },
+                {
+                    "id": "tools/tool_hoe"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 5,
+            "name": "Evelyn",
+            "gender": "female",
+            "role": "Guard",
+            "body_type": "female",
+            "seed": 426148737,
+            "filename": "villager_05_evelyn",
+            "sprite": "assets/characters/villager_05_evelyn.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "bronze"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female_small"
+                },
+                {
+                    "id": "hair/curly/hair_curly_long",
+                    "color": "light_brown"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_polo",
+                    "color": "slate"
+                },
+                {
+                    "id": "torso/armour/torso_armour_plate"
+                },
+                {
+                    "id": "legs/pants/legs_formal",
+                    "color": "gray"
+                },
+                {
+                    "id": "feet/boots/feet_boots_revised",
+                    "color": "black"
+                },
+                {
+                    "id": "headwear/helmets/helmets/hat_helmet_kettle"
+                },
+                {
+                    "id": "weapons/sword/weapon_sword_longsword"
+                },
+                {
+                    "id": "weapons/shields/shield_kite"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 6,
+            "name": "Lyra",
+            "gender": "female",
+            "role": "Healer",
+            "body_type": "female",
+            "seed": 106286855,
+            "filename": "villager_06_lyra",
+            "sprite": "assets/characters/villager_06_lyra.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "taupe"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female"
+                },
+                {
+                    "id": "hair/curly/hair_curls_large",
+                    "color": "ginger"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_cardigan",
+                    "color": "white"
+                },
+                {
+                    "id": "torso/waist/belt_sash",
+                    "color": "teal"
+                },
+                {
+                    "id": "legs/skirts/legs_skirts_plain",
+                    "color": "sky"
+                },
+                {
+                    "id": "feet/boots/feet_boots_basic",
+                    "color": "ivory"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 7,
+            "name": "Orin",
+            "gender": "male",
+            "role": "Innkeeper",
+            "body_type": "male",
+            "seed": 651799579,
+            "filename": "villager_07_orin",
+            "sprite": "assets/characters/villager_07_orin.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "brown"
+                },
+                {
+                    "id": "head/heads/human/heads_human_male_small"
+                },
+                {
+                    "id": "hair/bob/hair_relm_short",
+                    "color": "ash"
+                },
+                {
+                    "id": "hair/beards/beards_medium",
+                    "color": "ash"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_buttoned",
+                    "color": "tan"
+                },
+                {
+                    "id": "torso/vest/torso_clothes_vest_open",
+                    "color": "maroon"
+                },
+                {
+                    "id": "torso/aprons/torso_aprons_apron",
+                    "color": "white"
+                },
+                {
+                    "id": "legs/pants/legs_cuffed",
+                    "color": "oak"
+                },
+                {
+                    "id": "feet/boots/feet_boots_basic",
+                    "color": "oak"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 8,
+            "name": "Clara",
+            "gender": "female",
+            "role": "Villager",
+            "body_type": "female",
+            "seed": 155175295,
+            "filename": "villager_08_clara",
+            "sprite": "assets/characters/villager_08_clara.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "olive"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female"
+                },
+                {
+                    "id": "hair/curly/hair_curls_large",
+                    "color": "black"
+                },
+                {
+                    "id": "torso/shirts/shortsleeve/torso_clothes_tshirt_scoop",
+                    "color": "sky"
+                },
+                {
+                    "id": "legs/pants/legs_pants2",
+                    "color": "tan"
+                },
+                {
+                    "id": "feet/shoes/feet_shoes_basic",
+                    "color": "black"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 9,
+            "name": "Gareth",
+            "gender": "male",
+            "role": "Elder",
+            "body_type": "male",
+            "seed": 257153779,
+            "filename": "villager_09_gareth",
+            "sprite": "assets/characters/villager_09_gareth.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "taupe"
+                },
+                {
+                    "id": "head/heads/human/heads_human_male_elderly"
+                },
+                {
+                    "id": "hair/short/hair_bedhead",
+                    "color": "ash"
+                },
+                {
+                    "id": "hair/beards/beards_beard",
+                    "color": "ash"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_cardigan",
+                    "color": "bluegray"
+                },
+                {
+                    "id": "torso/jacket/torso_jacket_iverness"
+                },
+                {
+                    "id": "torso/waist/belt_robe"
+                },
+                {
+                    "id": "legs/pants/legs_pants",
+                    "color": "gray"
+                },
+                {
+                    "id": "feet/boots/feet_boots_basic",
+                    "color": "oak"
+                },
+                {
+                    "id": "headwear/accessories/glasses/facial_glasses_halfmoon"
+                },
+                {
+                    "id": "weapons/magic/weapon_magic_simple"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 10,
+            "name": "Freya",
+            "gender": "female",
+            "role": "Fisherman",
+            "body_type": "female",
+            "seed": 1916805364,
+            "filename": "villager_10_freya",
+            "sprite": "assets/characters/villager_10_freya.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "olive"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female"
+                },
+                {
+                    "id": "hair/pigtails/hair_pigtails",
+                    "color": "sandy"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve_scoop",
+                    "color": "sky"
+                },
+                {
+                    "id": "torso/aprons/torso_aprons_overalls",
+                    "color": "navy"
+                },
+                {
+                    "id": "legs/pants/legs_cuffed",
+                    "color": "tan"
+                },
+                {
+                    "id": "feet/boots/feet_boots_fold",
+                    "color": "oak"
+                },
+                {
+                    "id": "headwear/coverings/bandana/hat_bandana"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 11,
+            "name": "Rowan",
+            "gender": "male",
+            "role": "Villager",
+            "body_type": "male",
+            "seed": 1242963975,
+            "filename": "villager_11_rowan",
+            "sprite": "assets/characters/villager_11_rowan.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "bronze"
+                },
+                {
+                    "id": "head/heads/human/heads_human_male"
+                },
+                {
+                    "id": "hair/spiky/hair_halfmessy",
+                    "color": "light_brown"
+                },
+                {
+                    "id": "hair/mustaches/beards_mustache",
+                    "color": "light_brown"
+                },
+                {
+                    "id": "torso/shirts/shortsleeve/torso_clothes_shortsleeve",
+                    "color": "ivory"
+                },
+                {
+                    "id": "legs/pants/legs_pants",
+                    "color": "blue"
+                },
+                {
+                    "id": "feet/shoes/feet_shoes_basic",
+                    "color": "brown"
+                }
+            ],
+            "rendered": true
+        },
+        {
+            "id": 12,
+            "name": "Isolde",
+            "gender": "female",
+            "role": "Hunter",
+            "body_type": "female",
+            "seed": 1211071495,
+            "filename": "villager_12_isolde",
+            "sprite": "assets/characters/villager_12_isolde.png",
+            "items": [
+                {
+                    "id": "body/body",
+                    "color": "brown"
+                },
+                {
+                    "id": "head/heads/human/heads_human_female"
+                },
+                {
+                    "id": "hair/braids/hair_topknot_long",
+                    "color": "ginger"
+                },
+                {
+                    "id": "torso/shirts/longsleeve/torso_clothes_longsleeve2_polo",
+                    "color": "teal"
+                },
+                {
+                    "id": "torso/armour/torso_armour_leather"
+                },
+                {
+                    "id": "torso/cape/cape_solid",
+                    "color": "brown"
+                },
+                {
+                    "id": "torso/backpack/quiver"
+                },
+                {
+                    "id": "legs/pants/legs_pants2",
+                    "color": "oak"
+                },
+                {
+                    "id": "feet/boots/feet_boots_revised",
+                    "color": "oak"
+                },
+                {
+                    "id": "headwear/hats/caps/hat_cap_leather"
+                },
+                {
+                    "id": "weapons/ranged/weapon_ranged_crossbow"
+                }
+            ],
+            "rendered": true
+        }
+    ]
+}

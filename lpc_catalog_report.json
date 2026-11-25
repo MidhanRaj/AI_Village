@@ -1,0 +1,243 @@
+{
+  "search_results": {
+    "male:human head": {
+      "raw_text": "{\n  \"id\": \"head/heads/human/heads_human_elderly_small\",\n  \"name\": \"Human Elderly Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female\",\n  \"name\": \"Human Female\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female_elderly\",\n  \"name\": \"Human Female Elderly\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female_small\",\n  \"name\": \"Human Female Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male\",\n  \"name\": \"Human Male\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_elderly\",\n  \"name\": \"Human Male Elderly\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_gaunt\",\n  \"name\": \"Human Male Gaunt\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_plump\",\n  \"name\": \"Human Male Plump\",\n  \"type\": \"head\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_small\",\n  \"name\": \"Human Male Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:short hair": {
+      "raw_text": "{\n  \"id\": \"hair/afro/hair_dreadlocks_short\",\n  \"name\": \"Dreadlocks short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bald/hair_shorthawk\",\n  \"name\": \"Shorthawk\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bob/hair_relm_short\",\n  \"name\": \"Relm Short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_short2\",\n  \"name\": \"Short Topknot 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_short\",\n  \"name\": \"Curly short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_short2\",\n  \"name\": \"Curly short 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bangs\",\n  \"name\": \"Bangs\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bangsshort\",\n  \"name\": \"Bangsshort\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bedhead\",\n  \"name\": \"Bedhead\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_cowlick\",\n  \"name\": \"Cowlick\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_cowlick_tall\",\n  \"name\": \"Cowlick tall\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_curtains\",\n  \"name\": \"Curtains\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_idol\",\n  \"name\": \"Idol\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy1\",\n  \"name\": \"Messy1\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy2\",\n  \"name\": \"Messy2\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy3\",\n  \"name\": \"Messy3\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_mop\",\n  \"name\": \"Mop\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_page\",\n  \"name\": \"Page\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:long hair": {
+      "raw_text": "{\n  \"id\": \"hair/afro/hair_dreadlocks_long\",\n  \"name\": \"Dreadlocks long\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bald/hair_longhawk\",\n  \"name\": \"Longhawk\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_long_tied\",\n  \"name\": \"Long tied\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_relm_xlong\",\n  \"name\": \"Relm XLong\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_long\",\n  \"name\": \"Long Topknot\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_long2\",\n  \"name\": \"Long Topknot 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curls_large_xlong\",\n  \"name\": \"Large Curls XLong\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_long\",\n  \"name\": \"Curly long\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_straightl\",\n  \"name\": \"Left Long Straight\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_straightr\",\n  \"name\": \"Right Long Straight\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_wavyl\",\n  \"name\": \"Left Long Wavy\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_wavyr\",\n  \"name\": \"Right Long Wavy\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_bangl\",\n  \"name\": \"Left XLong Bang\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_bangr\",\n  \"name\": \"Right XLong Bang\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_braidl\",\n  \"name\": \"Left XLong Braid\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_braidr\",\n  \"name\": \"Right XLong Braid\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_curlyl\",\n  \"name\": \"Left XLong Curly\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_curlyr\",\n  \"name\": \"Right XLong Curly\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_wavyl\",\n  \"name\": \"Left XLong Wavy\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_wavyr\",\n  \"name\": \"Right XLong Wavy\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:ponytail": {
+      "raw_text": "{\n  \"id\": \"hair/braids/hair_high_ponytail\",\n  \"name\": \"High ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_ponytail\",\n  \"name\": \"Ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_ponytail2\",\n  \"name\": \"Ponytail2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_relm_ponytail\",\n  \"name\": \"Relm w/Ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_long\",\n  \"name\": \"Long Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_relm\",\n  \"name\": \"Relm Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:beard": {
+      "raw_text": "{\n  \"id\": \"hair/beards/beards_5oclock_shadow\",\n  \"name\": \"5 O'clock Shadow\",\n  \"type\": \"beard\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_beard\",\n  \"name\": \"Basic Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_medium\",\n  \"name\": \"Medium Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_trimmed\",\n  \"name\": \"Trimmed Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_winter\",\n  \"name\": \"Winter Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_bigstache\",\n  \"name\": \"Big Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_chevron\",\n  \"name\": \"Chevron Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_french\",\n  \"name\": \"French Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_handlebar\",\n  \"name\": \"Handlebar Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_horseshoe\",\n  \"name\": \"Horseshoe Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_lampshade\",\n  \"name\": \"Lampshade Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_mustache\",\n  \"name\": \"Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_walrus\",\n  \"name\": \"Walrus Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:shirt": {
+      "raw_text": "{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve\",\n  \"name\": \"Longsleeve\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2\",\n  \"name\": \"Longsleeve 2\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_buttoned\",\n  \"name\": \"Longsleeve 2 Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_cardigan\",\n  \"name\": \"Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_polo\",\n  \"name\": \"Longsleeve Polo\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_scoop\",\n  \"name\": \"Longsleeve 2 Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_vneck\",\n  \"name\": \"Longsleeve 2 VNeck\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeves_cuffed\",\n  \"name\": \"Cuffed Longsleeves Overlay\",\n  \"type\": \"sleeves\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve_scoop\",\n  \"name\": \"Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve\",\n  \"name\": \"Shortsleeve\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve_cardigan\",\n  \"name\": \"Shortsleeve Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve_polo\",\n  \"name\": \"Shortsleeve Polo\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt\",\n  \"name\": \"TShirt\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_buttoned\",\n  \"name\": \"TShirt Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_scoop\",\n  \"name\": \"TShirt Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_vneck\",\n  \"name\": \"TShirt VNeck\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless1\",\n  \"name\": \"Original Sleeveless\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2\",\n  \"name\": \"Sleeveless 2\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2_buttoned\",\n  \"name\": \"Sleeveless 2 Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2_cardigan\",\n  \"name\": \"Sleeveless 2 Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:tunic": {
+      "raw_text": ""
+    },
+    "male:vest": {
+      "raw_text": ""
+    },
+    "male:apron": {
+      "raw_text": "{\n  \"id\": \"torso/aprons/torso_aprons_overalls\",\n  \"name\": \"Overalls\",\n  \"type\": \"overalls\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/aprons/torso_aprons_suspenders\",\n  \"name\": \"Suspenders\",\n  \"type\": \"overalls\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:overalls": {
+      "id": "torso/aprons/torso_aprons_overalls",
+      "name": "Overalls",
+      "type": "overalls",
+      "drm_safe": true,
+      "complete": true
+    },
+    "male:robe": {
+      "raw_text": ""
+    },
+    "male:armor": {
+      "raw_text": ""
+    },
+    "male:pants": {
+      "raw_text": "{\n  \"id\": \"legs/pants/legs_cuffed\",\n  \"name\": \"Cuffed Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_formal\",\n  \"name\": \"Formal Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_formal_striped\",\n  \"name\": \"Striped Formal Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pantaloons\",\n  \"name\": \"Pantaloons\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pants\",\n  \"name\": \"Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pants2\",\n  \"name\": \"Long Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:boots": {
+      "raw_text": "{\n  \"id\": \"feet/boots/feet_boots_basic\",\n  \"name\": \"Basic Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_fold\",\n  \"name\": \"Folded Rim Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_revised\",\n  \"name\": \"Revised Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_rim\",\n  \"name\": \"Rimmed Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:hat": {
+      "raw_text": "{\n  \"id\": \"headwear/coverings/bandana/hat_bandana\",\n  \"name\": \"Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/bandana/hat_bandana2\",\n  \"name\": \"Bordered Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/bandana/hat_bandana_pirate\",\n  \"name\": \"Pirate Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/headbands/hat_headband_kerchief\",\n  \"name\": \"Kerchief\",\n  \"type\": \"headcover\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/headbands/hat_headband_tied\",\n  \"name\": \"Tied Headband\",\n  \"type\": \"headcover\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_cloth\",\n  \"name\": \"Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_hijab\",\n  \"name\": \"Hijab\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_sack_cloth\",\n  \"name\": \"Sack Cloth Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_admiral\",\n  \"name\": \"Bicorne Athwart Admiral\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_admiral_trim\",\n  \"name\": \"Bicorne Athwart Admiral Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_basic\",\n  \"name\": \"Bicorne Athwart\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_captain\",\n  \"name\": \"Bicorne Athwart Captain\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_commodore\",\n  \"name\": \"Bicorne Athwart Commodore\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_commodore_trim\",\n  \"name\": \"Bicorne Athwart Commodore Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie\",\n  \"name\": \"Bonnie\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_feather\",\n  \"name\": \"Bonnie feather\",\n  \"type\": \"hat_accessory\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_tilt\",\n  \"name\": \"Bonnie Alt Tilt\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_trim\",\n  \"name\": \"Bonnie Center Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_cavalier\",\n  \"name\": \"Cavalier\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_cavalier_feather\",\n  \"name\": \"Cavalier feather\",\n  \"type\": \"hat_accessory\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:hood": {
+      "raw_text": "{\n  \"id\": \"headwear/coverings/hoods/hat_hood_cloth\",\n  \"name\": \"Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_hijab\",\n  \"name\": \"Hijab\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_sack_cloth\",\n  \"name\": \"Sack Cloth Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "male:glasses": {
+      "raw_text": "{\n  \"id\": \"headwear/accessories/glasses/facial_glasses\",\n  \"name\": \"Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_halfmoon\",\n  \"name\": \"Halfmoon Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_nerd\",\n  \"name\": \"Nerd Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_round\",\n  \"name\": \"Round Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_secretary\",\n  \"name\": \"Secretary Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_shades\",\n  \"name\": \"Shades\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_sunglasses\",\n  \"name\": \"Sunglasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}"
+    },
+    "male:staff": {
+      "raw_text": ""
+    },
+    "male:hammer": {
+      "raw_text": ""
+    },
+    "male:shield": {
+      "raw_text": ""
+    },
+    "male:bow": {
+      "raw_text": "{\n  \"id\": \"headwear/hats/formal/hat_formal_bowler\",\n  \"name\": \"Formal Bowler Hat\",\n  \"type\": \"hat\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/neck/neck_bowtie\",\n  \"name\": \"Bowtie\",\n  \"type\": \"neck\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/neck/neck_bowtie2\",\n  \"name\": \"Bowtie 2\",\n  \"type\": \"neck\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:human head": {
+      "raw_text": "{\n  \"id\": \"head/heads/human/heads_human_elderly_small\",\n  \"name\": \"Human Elderly Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female\",\n  \"name\": \"Human Female\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female_elderly\",\n  \"name\": \"Human Female Elderly\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_female_small\",\n  \"name\": \"Human Female Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male\",\n  \"name\": \"Human Male\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_elderly\",\n  \"name\": \"Human Male Elderly\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_gaunt\",\n  \"name\": \"Human Male Gaunt\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_plump\",\n  \"name\": \"Human Male Plump\",\n  \"type\": \"head\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"head/heads/human/heads_human_male_small\",\n  \"name\": \"Human Male Small\",\n  \"type\": \"head\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:short hair": {
+      "raw_text": "{\n  \"id\": \"hair/afro/hair_dreadlocks_short\",\n  \"name\": \"Dreadlocks short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bald/hair_shorthawk\",\n  \"name\": \"Shorthawk\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bob/hair_relm_short\",\n  \"name\": \"Relm Short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_short2\",\n  \"name\": \"Short Topknot 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_short\",\n  \"name\": \"Curly short\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_short2\",\n  \"name\": \"Curly short 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bangs\",\n  \"name\": \"Bangs\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bangsshort\",\n  \"name\": \"Bangsshort\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_bedhead\",\n  \"name\": \"Bedhead\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_cowlick\",\n  \"name\": \"Cowlick\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_cowlick_tall\",\n  \"name\": \"Cowlick tall\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_curtains\",\n  \"name\": \"Curtains\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_idol\",\n  \"name\": \"Idol\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy1\",\n  \"name\": \"Messy1\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy2\",\n  \"name\": \"Messy2\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_messy3\",\n  \"name\": \"Messy3\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_mop\",\n  \"name\": \"Mop\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/short/hair_page\",\n  \"name\": \"Page\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:long hair": {
+      "raw_text": "{\n  \"id\": \"hair/afro/hair_dreadlocks_long\",\n  \"name\": \"Dreadlocks long\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/bald/hair_longhawk\",\n  \"name\": \"Longhawk\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_long_tied\",\n  \"name\": \"Long tied\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_relm_xlong\",\n  \"name\": \"Relm XLong\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_long\",\n  \"name\": \"Long Topknot\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_topknot_long2\",\n  \"name\": \"Long Topknot 2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curls_large_xlong\",\n  \"name\": \"Large Curls XLong\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/curly/hair_curly_long\",\n  \"name\": \"Curly long\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_straightl\",\n  \"name\": \"Left Long Straight\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_straightr\",\n  \"name\": \"Right Long Straight\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_wavyl\",\n  \"name\": \"Left Long Wavy\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_long_wavyr\",\n  \"name\": \"Right Long Wavy\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_bangl\",\n  \"name\": \"Left XLong Bang\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_bangr\",\n  \"name\": \"Right XLong Bang\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_braidl\",\n  \"name\": \"Left XLong Braid\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_braidr\",\n  \"name\": \"Right XLong Braid\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_curlyl\",\n  \"name\": \"Left XLong Curly\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_curlyr\",\n  \"name\": \"Right XLong Curly\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_wavyl\",\n  \"name\": \"Left XLong Wavy\",\n  \"type\": \"hairextl\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/bangs/hairext_xlong_wavyr\",\n  \"name\": \"Right XLong Wavy\",\n  \"type\": \"hairextr\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:ponytail": {
+      "raw_text": "{\n  \"id\": \"hair/braids/hair_high_ponytail\",\n  \"name\": \"High ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_ponytail\",\n  \"name\": \"Ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_ponytail2\",\n  \"name\": \"Ponytail2\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/braids/hair_relm_ponytail\",\n  \"name\": \"Relm w/Ponytail\",\n  \"type\": \"hair\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_long\",\n  \"name\": \"Long Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_relm\",\n  \"name\": \"Relm Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/extensions/ponytails/hairext_topknot_short\",\n  \"name\": \"Short Topknot\",\n  \"type\": \"ponytail\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:beard": {
+      "raw_text": "{\n  \"id\": \"hair/beards/beards_5oclock_shadow\",\n  \"name\": \"5 O'clock Shadow\",\n  \"type\": \"beard\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_beard\",\n  \"name\": \"Basic Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_medium\",\n  \"name\": \"Medium Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_trimmed\",\n  \"name\": \"Trimmed Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/beards/beards_winter\",\n  \"name\": \"Winter Beard\",\n  \"type\": \"beard\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_bigstache\",\n  \"name\": \"Big Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_chevron\",\n  \"name\": \"Chevron Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_french\",\n  \"name\": \"French Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_handlebar\",\n  \"name\": \"Handlebar Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_horseshoe\",\n  \"name\": \"Horseshoe Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_lampshade\",\n  \"name\": \"Lampshade Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_mustache\",\n  \"name\": \"Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"hair/mustaches/beards_walrus\",\n  \"name\": \"Walrus Mustache\",\n  \"type\": \"mustache\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:shirt": {
+      "raw_text": "{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve\",\n  \"name\": \"Longsleeve\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2\",\n  \"name\": \"Longsleeve 2\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_buttoned\",\n  \"name\": \"Longsleeve 2 Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_cardigan\",\n  \"name\": \"Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_polo\",\n  \"name\": \"Longsleeve Polo\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_scoop\",\n  \"name\": \"Longsleeve 2 Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve2_vneck\",\n  \"name\": \"Longsleeve 2 VNeck\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeves_cuffed\",\n  \"name\": \"Cuffed Longsleeves Overlay\",\n  \"type\": \"sleeves\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/longsleeve/torso_clothes_longsleeve_scoop\",\n  \"name\": \"Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve\",\n  \"name\": \"Shortsleeve\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve_cardigan\",\n  \"name\": \"Shortsleeve Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_shortsleeve_polo\",\n  \"name\": \"Shortsleeve Polo\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt\",\n  \"name\": \"TShirt\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_buttoned\",\n  \"name\": \"TShirt Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_scoop\",\n  \"name\": \"TShirt Scoop\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/shortsleeve/torso_clothes_tshirt_vneck\",\n  \"name\": \"TShirt VNeck\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless1\",\n  \"name\": \"Original Sleeveless\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2\",\n  \"name\": \"Sleeveless 2\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2_buttoned\",\n  \"name\": \"Sleeveless 2 Buttoned\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/shirts/sleeveless/torso_clothes_sleeveless2_cardigan\",\n  \"name\": \"Sleeveless 2 Cardigan\",\n  \"type\": \"clothes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:tunic": {
+      "raw_text": ""
+    },
+    "female:vest": {
+      "raw_text": ""
+    },
+    "female:apron": {
+      "raw_text": "{\n  \"id\": \"torso/aprons/torso_aprons_overalls\",\n  \"name\": \"Overalls\",\n  \"type\": \"overalls\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"torso/aprons/torso_aprons_suspenders\",\n  \"name\": \"Suspenders\",\n  \"type\": \"overalls\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:overalls": {
+      "id": "torso/aprons/torso_aprons_overalls",
+      "name": "Overalls",
+      "type": "overalls",
+      "drm_safe": true,
+      "complete": true
+    },
+    "female:robe": {
+      "raw_text": ""
+    },
+    "female:armor": {
+      "raw_text": ""
+    },
+    "female:pants": {
+      "raw_text": "{\n  \"id\": \"legs/pants/legs_cuffed\",\n  \"name\": \"Cuffed Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_formal\",\n  \"name\": \"Formal Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_formal_striped\",\n  \"name\": \"Striped Formal Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pantaloons\",\n  \"name\": \"Pantaloons\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pants\",\n  \"name\": \"Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"legs/pants/legs_pants2\",\n  \"name\": \"Long Pants\",\n  \"type\": \"legs\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:boots": {
+      "raw_text": "{\n  \"id\": \"feet/boots/feet_boots_basic\",\n  \"name\": \"Basic Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_fold\",\n  \"name\": \"Folded Rim Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_revised\",\n  \"name\": \"Revised Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"feet/boots/feet_boots_rim\",\n  \"name\": \"Rimmed Boots\",\n  \"type\": \"shoes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:hat": {
+      "raw_text": "{\n  \"id\": \"headwear/coverings/bandana/hat_bandana\",\n  \"name\": \"Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/bandana/hat_bandana2\",\n  \"name\": \"Bordered Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/bandana/hat_bandana_pirate\",\n  \"name\": \"Pirate Bandana\",\n  \"type\": \"bandana\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/headbands/hat_headband_kerchief\",\n  \"name\": \"Kerchief\",\n  \"type\": \"headcover\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/headbands/hat_headband_tied\",\n  \"name\": \"Tied Headband\",\n  \"type\": \"headcover\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_cloth\",\n  \"name\": \"Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_hijab\",\n  \"name\": \"Hijab\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_sack_cloth\",\n  \"name\": \"Sack Cloth Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_admiral\",\n  \"name\": \"Bicorne Athwart Admiral\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_admiral_trim\",\n  \"name\": \"Bicorne Athwart Admiral Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_basic\",\n  \"name\": \"Bicorne Athwart\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_captain\",\n  \"name\": \"Bicorne Athwart Captain\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_commodore\",\n  \"name\": \"Bicorne Athwart Commodore\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/athwart/hat_bicorne_athwart_commodore_trim\",\n  \"name\": \"Bicorne Athwart Commodore Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie\",\n  \"name\": \"Bonnie\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_feather\",\n  \"name\": \"Bonnie feather\",\n  \"type\": \"hat_accessory\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_tilt\",\n  \"name\": \"Bonnie Alt Tilt\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_bonnie_trim\",\n  \"name\": \"Bonnie Center Trim\",\n  \"type\": \"hat_trim\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_cavalier\",\n  \"name\": \"Cavalier\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/hats/caps/hat_cap_cavalier_feather\",\n  \"name\": \"Cavalier feather\",\n  \"type\": \"hat_accessory\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:hood": {
+      "raw_text": "{\n  \"id\": \"headwear/coverings/hoods/hat_hood_cloth\",\n  \"name\": \"Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_hijab\",\n  \"name\": \"Hijab\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/coverings/hoods/hat_hood_sack_cloth\",\n  \"name\": \"Sack Cloth Hood\",\n  \"type\": \"hat\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    },
+    "female:glasses": {
+      "raw_text": "{\n  \"id\": \"headwear/accessories/glasses/facial_glasses\",\n  \"name\": \"Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_halfmoon\",\n  \"name\": \"Halfmoon Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": true,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_nerd\",\n  \"name\": \"Nerd Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_round\",\n  \"name\": \"Round Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_secretary\",\n  \"name\": \"Secretary Glasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_shades\",\n  \"name\": \"Shades\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/accessories/glasses/facial_glasses_sunglasses\",\n  \"name\": \"Sunglasses\",\n  \"type\": \"facial_eyes\",\n  \"drm_safe\": false,\n  \"complete\": true\n}"
+    },
+    "female:staff": {
+      "raw_text": ""
+    },
+    "female:hammer": {
+      "raw_text": ""
+    },
+    "female:shield": {
+      "raw_text": ""
+    },
+    "female:bow": {
+      "raw_text": "{\n  \"id\": \"headwear/hats/formal/hat_formal_bowler\",\n  \"name\": \"Formal Bowler Hat\",\n  \"type\": \"hat\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/neck/neck_bowtie\",\n  \"name\": \"Bowtie\",\n  \"type\": \"neck\",\n  \"drm_safe\": false,\n  \"complete\": true\n}\n{\n  \"id\": \"headwear/neck/neck_bowtie2\",\n  \"name\": \"Bowtie 2\",\n  \"type\": \"neck\",\n  \"drm_safe\": true,\n  \"complete\": true\n}"
+    }
+  },
+  "item_details": {
+    "torso/aprons/torso_aprons_overalls": {
+      "is_error": false,
+      "data": {
+        "id": "torso/aprons/torso_aprons_overalls",
+        "name": "Overalls",
+        "type": "overalls",
+        "body_types": [
+          "female",
+          "male",
+          "teen"
+        ],
+        "animations": {
+          "female": [
+            "spellcast",
+            "thrust",
+            "walk",
+            "slash",
+            "shoot",
+            "hurt",
+            "climb",
+            "idle",
+            "jump",
+            "sit",
+            "emote",
+            "run",
+            "combat_idle",
+            "backslash",
+            "halfslash"
+          ],
+          "male": [
+            "spellcast",
+            "thrust",
+            "walk",
+            "slash",
+            "shoot",
+            "hurt",
+            "climb",
+            "idle",
+            "jump",
+            "sit",
+            "emote",
+            "run",
+            "combat_idle",
+            "backslash",
+            "halfslash"
+          ],
+          "teen": [
+            "spellcast",
+            "thrust",
+            "walk",
+            "slash",
+            "shoot",
+            "hurt",
+            "climb",
+            "idle",
+            "jump",
+            "sit",
+            "emote",
+            "run",
+            "combat_idle",
+            "backslash",
+            "halfslash"
+          ]
+        },
+        "missing_animations": {
+          "female": [],
+          "male": [],
+          "teen": []
+        },
+        "complete": {
+          "female": true,
+          "male": true,
+          "teen": true
+        },
+        "variants": [
+          "leather",
+          "black",
+          "blue",
+          "bluegray",
+          "brown",
+          "charcoal",
+          "forest",
+          "gray",
+          "green",
+          "lavender",
+          "maroon",
+          "navy",
+          "orange",
+          "pink",
+          "purple",
+          "red",
+          "rose",
+          "sky",
+          "slate",
+          "tan",
+          "teal",
+          "walnut",
+          "white",
+          "yellow"
+        ]
+      }
+    }
+  },
+  "output_directory": "C:\\Users\\midha\\Downloads\\AI_Village\\assets\\characters"
+}
