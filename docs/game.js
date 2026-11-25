@@ -87,6 +87,7 @@ const ctx = canvas.getContext("2d");
 const promptEl = document.getElementById("prompt");
 const dlgBox = document.getElementById("dialogue-box");
 const dlgName = document.getElementById("dlg-name");
+const dlgClear = document.getElementById("dlg-clear");
 const dlgHistory = document.getElementById("dlg-history");
 const dlgForm = document.getElementById("dlg-form");
 const dlgInput = document.getElementById("dlg-input");
@@ -314,126 +315,160 @@ function collidesAny(rect, list) {
 
 function loadChat(name) {
   try {
-    return JSON.parse(localStorage.getItem(`ai_village_chat_${name}`) || "[]");
+    return JSON.parse(localStorage.getItem(`ai_village_chat_v2_${name}`) || "[]");
   } catch {
     return [];
   }
 }
 
 function saveChat(name, history) {
-  localStorage.setItem(`ai_village_chat_${name}`, JSON.stringify(history.slice(-20)));
+  localStorage.setItem(`ai_village_chat_v2_${name}`, JSON.stringify(history.slice(-20)));
 }
 
-  function smartFallbackReply(npc, text, playerName) {
-    const lower = text.toLowerCase();
-    const modernWords = ["google", "internet", "iphone", "phone", "computer", "laptop", "car", "airplane", "tv", "youtube", "wifi"];
-    if (modernWords.some((w) => lower.includes(w))) {
-      const guesses = {
-        Blacksmith: `'${text}'? Never heard of it, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
-        Wizard: `Hmm, '${text}'... I have never seen that in any arcane tome. Perhaps it is a distant scrying crystal?`,
-        Witch: `'${text}'? No herb or charm in my satchel goes by that name, ${playerName}.`,
-        Fisherwoman: `'${text}'? Never caught anything by that name in this river, ${playerName}. Is it a kind of bait?`,
-        Fisherman: `'${text}'? Sounds like a strange tide or a fish from deeper waters than I sail.`,
-        Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}?`,
-        Guard: `'${text}'? Never seen that banner or weapon at our gates, ${playerName}.`,
-      };
-      return guesses[npc.role] || `'${text}'? I've never heard of that in our village, ${playerName}. What does it do?`;
-    }
-
-    if (lower.includes("magic") || lower.includes("mgic") || lower.includes("spell")) {
-      if (npc.role === "Wizard" || npc.role === "Witch") {
-        return `Aye, ${playerName}! I weave starlight wards, scrying charms, and fire sparks—though the elders warn not to cast indoors.`;
-      }
-      return `Magic? Leave that to Aldric the Wizard, ${playerName}—I stick to my work as the village ${npc.role}!`;
-    }
-
-    if (lower.includes("who") || lower.includes("name") || lower.includes("job") || lower.includes("do you do")) {
-      return `I'm ${npc.name}, the village ${npc.role}. If you need help around town, just ask!`;
-    }
-
-    if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
-      return `Good day, ${playerName}! Quiet morning here in the village—what brings you to see a ${npc.role}?`;
-    }
-
-    const roleLines = {
-      Blacksmith: `The forge is running hot today, ${playerName}. Need a blade sharpened or horseshoes mended?`,
-      Wizard: `The stars shifted strangely last night, ${playerName}. Tell me more of what you seek.`,
-      Witch: `My cauldron's simmering with moonleaf tea, ${playerName}. Speak plainly—what's on your mind?`,
-      Merchant: `I've got fine cloth and spices from the southern road, ${playerName}. Looking to trade?`,
-      Farmer: `If the rain holds off until dusk, the wheat harvest will be our best yet, ${playerName}!`,
-      Guard: `All roads into the village look clear today, ${playerName}. Stay out of trouble.`,
-      Healer: `You look well enough, ${playerName}, though a sprig of chamomile never hurts after long travel.`,
-      Innkeeper: `Pull up a chair sometime, ${playerName}—there's warm stew and fresh ale at the inn!`,
-      Elder: `I've watched this village grow for sixty summers, ${playerName}. Every traveler leaves a mark.`,
-      Fisherwoman: `The river trout are biting near the bend today, ${playerName}!`,
-      Fisherman: `Patience is everything by the water, ${playerName}.`,
-      Hunter: `Fresh deer tracks near the north pines, ${playerName}. Keep your eyes sharp.`,
+function smartFallbackReply(npc, text, playerName) {
+  const lower = text.toLowerCase();
+  const modernWords = ["google", "internet", "iphone", "phone", "computer", "laptop", "car", "airplane", "tv", "youtube", "wifi"];
+  if (modernWords.some((w) => lower.includes(w))) {
+    const guesses = {
+      Blacksmith: `'${text}'? Never heard of it, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
+      Wizard: `Hmm, '${text}'... I have never seen that in any ancient tome. Perhaps it is a distant scrying crystal?`,
+      Witch: `'${text}'? No herb or charm in my satchel goes by that name, ${playerName}.`,
+      Fisherwoman: `'${text}'? Never caught anything by that name in this river, ${playerName}. Is it a kind of bait?`,
+      Fisherman: `'${text}'? Sounds like a strange tide or a fish from deeper waters than I sail.`,
+      Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}?`,
+      Guard: `'${text}'? Never seen that banner or weapon at our gates, ${playerName}.`,
     };
-    return roleLines[npc.role] || `Interesting thought, ${playerName}. Around here, we take each day as it comes.`;
+    return guesses[npc.role] || `'${text}'? I've never heard of that in our village, ${playerName}. What does it do?`;
   }
 
-  async function generateReply(npc, text, rosterSummary, playerName) {
-    const history = loadChat(npc.name);
-    history.push({ sender: "player", text });
-
-    let reply = "";
-    if (webllmEngine) {
-      const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
-      const systemPrompt =
-        `You are ${npc.name}, the ${npc.role} in a medieval fantasy village.\n` +
-        `You are speaking with ${playerName}. ${personality}\n` +
-        `Other villagers:\n${rosterSummary}\n` +
-      `Guidelines: Answer the player's actual question or comment directly and naturally in 1 to 2 short sentences. ` +
-        `Stay in your medieval fantasy world; if they mention an unfamiliar word, ask what it means or guess based on your craft.`;
-
-      const messages = [{ role: "system", content: systemPrompt }];
-      for (const m of history.slice(-8)) {
-        messages.push({ role: m.sender === "player" ? "user" : "assistant", content: m.text });
-      }
-      try {
-        const out = await webllmEngine.chat.completions.create({
-          messages,
-          temperature: 0.7,
-          max_tokens: 90,
-        });
-        reply = out.choices?.[0]?.message?.content?.trim() || "";
-      } catch {
-        reply = "";
-      }
-    }
-    if (!reply) {
-      reply = smartFallbackReply(npc, text, playerName);
-    }
-    history.push({ sender: "npc", text: reply });
-    saveChat(npc.name, history);
-    return reply;
+  if (lower.includes("passing by") || lower.includes("just looking") || lower.includes("wandering")) {
+    return `Safe travels through town, ${playerName}! Take a look around—there's always plenty happening in the village.`;
   }
 
-    async function initBrowserAI() {
-      if (webllmEngine || aiLoading) return;
-      if (!navigator.gpu) {
-        aiStatus.textContent = "Smart Fallback Active (No WebGPU)";
-        btnAi.classList.add("hidden");
-        return;
-      }
-      aiLoading = true;
-      btnAi.disabled = true;
-      aiStatus.textContent = "Loading Browser AI (Qwen)...";
+  if (lower.includes("what are you doing") || lower.includes("what do you do") || lower.includes("busy")) {
+    const doing = {
+      Blacksmith: `Just hammering out iron horseshoes and keeping the forge coals hot, ${playerName}.`,
+      Wizard: `Studying the star charts and tending to my crystal staff, ${playerName}.`,
+      Witch: `Sorting dried moonleaf and brewing a calming tonic.`,
+      Merchant: `Counting today's spices and checking my trade ledger.`,
+      Farmer: `Checking the soil moisture and repairing a fence post.`,
+      Guard: `Keeping watch over the main crossroads to make sure everyone is safe.`,
+      Healer: `Preparing herbal poultices in case anyone twists an ankle.`,
+      Innkeeper: `Sweeping up and getting a fresh pot of stew ready for dinner.`,
+      Elder: `Enjoying the fresh air and watching the younger folk bustle about.`,
+      Fisherwoman: `Mending my river nets and watching for trout ripples.`,
+      Fisherman: `Checking my lines by the bank.`,
+      Hunter: `Checking my crossbow string before heading toward the north woods.`,
+      Villager: `Just taking a stroll down the village path and catching up with neighbors, ${playerName}!`,
+    };
+    return doing[npc.role] || `Just enjoying a quiet afternoon in the village, ${playerName}!`;
+  }
+
+  if (lower.includes("magic") || lower.includes("mgic") || lower.includes("spell")) {
+    if (npc.role === "Wizard" || npc.role === "Witch") {
+      return `Aye, ${playerName}! I weave starlight wards, scrying charms, and fire sparks—though the elders warn not to cast indoors.`;
+    }
+    return `Magic? Leave that to Aldric the Wizard, ${playerName}—I stick to my own craft!`;
+  }
+
+  if (lower.includes("who") || lower.includes("name") || lower.includes("job")) {
+    return `I'm ${npc.name}, the village ${npc.role}. Nice to meet you, ${playerName}!`;
+  }
+
+  if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
+    return `Good day, ${playerName}! How are you finding our little village?`;
+  }
+
+  const roleLines = {
+    Blacksmith: `The forge is running hot today, ${playerName}. Need a blade sharpened?`,
+    Wizard: `The stars shifted strangely last night, ${playerName}. What brings you to me?`,
+    Witch: `My cauldron's simmering with moonleaf tea, ${playerName}. What's on your mind?`,
+    Merchant: `I've got fine cloth and spices from the southern road, ${playerName}.`,
+    Farmer: `If the rain holds off until dusk, the wheat harvest will be our best yet!`,
+    Guard: `All roads into the village look clear today, ${playerName}.`,
+    Healer: `You look well enough, ${playerName}, though chamomile tea never hurts.`,
+    Innkeeper: `Pull up a chair sometime, ${playerName}—there's warm stew at the inn!`,
+    Elder: `I've watched this village grow for sixty summers, ${playerName}.`,
+    Fisherwoman: `The river trout are biting near the bend today, ${playerName}!`,
+    Fisherman: `Patience is everything by the water, ${playerName}.`,
+    Hunter: `Fresh deer tracks near the north pines, ${playerName}.`,
+    Villager: `It's a lovely day for a walk around the square, isn't it, ${playerName}?`,
+  };
+  return roleLines[npc.role] || `Lovely day in the village, isn't it, ${playerName}?`;
+}
+
+async function generateReply(npc, text, rosterSummary, playerName) {
+  const history = loadChat(npc.name);
+  history.push({ sender: "player", text });
+
+  let reply = "";
+  if (webllmEngine) {
+    const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
+    const systemPrompt =
+      `You are ${npc.name}, a ${npc.role} in a medieval fantasy village.\n` +
+      `You are chatting with ${playerName}. ${personality}\n` +
+      `Other villagers: ${rosterSummary.replace(/\n/g, ", ")}.\n` +
+      `Reply directly and naturally to what ${playerName} just said in 1-2 short sentences. Stay in character.`;
+
+    const messages = [{ role: "system", content: systemPrompt }];
+    for (const m of history.slice(-8)) {
+      messages.push({ role: m.sender === "player" ? "user" : "assistant", content: m.text });
+    }
+    try {
+      const out = await webllmEngine.chat.completions.create({
+        messages,
+        temperature: 0.75,
+        max_tokens: 90,
+      });
+      reply = out.choices?.[0]?.message?.content?.trim() || "";
+    } catch {
+      reply = "";
+    }
+  }
+  if (!reply) {
+    reply = smartFallbackReply(npc, text, playerName);
+  }
+  history.push({ sender: "npc", text: reply });
+  saveChat(npc.name, history);
+  return reply;
+}
+
+async function initBrowserAI() {
+  if (webllmEngine || aiLoading) return;
+  if (!navigator.gpu) {
+    aiStatus.textContent = "Smart Fallback Active (No WebGPU)";
+    btnAi.classList.add("hidden");
+    return;
+  }
+  aiLoading = true;
+  btnAi.disabled = true;
+  aiStatus.textContent = "Downloading Qwen2.5-1.5B for browser...";
+  try {
+    const webllm = await import("https://esm.run/@mlc-ai/web-llm");
+    const models = ["Qwen2.5-1.5B-Instruct-q4f16_1-MLC", "Qwen2.5-0.5B-Instruct-q4f16_1-MLC"];
+    for (const modelId of models) {
       try {
-        const webllm = await import("https://esm.run/@mlc-ai/web-llm");
-        webllmEngine = await webllm.CreateMLCEngine("Qwen2.5-0.5B-Instruct-q4f16_1-MLC", {
+        webllmEngine = await webllm.CreateMLCEngine(modelId, {
           initProgressCallback: (p) => {
-            aiStatus.textContent = p.text ? p.text.slice(0, 42) : "Loading Qwen...";
+            aiStatus.textContent = p.text ? p.text.slice(0, 46) : `Loading ${modelId}...`;
           },
         });
-        aiStatus.textContent = "Browser AI Ready (Qwen2.5)";
+        aiStatus.textContent = `Browser AI Ready (${modelId.split("-Instruct")[0]})`;
         btnAi.classList.add("hidden");
-      } catch {
-        aiStatus.textContent = "Smart Fallback Active";
-        btnAi.disabled = false;
-      } finally {
-        aiLoading = false;
+        return;
+      } catch (e) {
+        console.warn("Failed loading", modelId, e);
       }
+    }
+    aiStatus.textContent = "WebGPU AI unavailable (using fallback)";
+    btnAi.disabled = false;
+  } catch (err) {
+    console.warn("WebLLM import failed:", err);
+    aiStatus.textContent = "AI load failed (using fallback)";
+    btnAi.disabled = false;
+  } finally {
+    aiLoading = false;
+  }
 }
 
 btnAi.addEventListener("click", initBrowserAI);
@@ -569,6 +604,12 @@ async function main() {
         activeNpc = null;
         dlgBox.classList.add("hidden");
       }
+
+      dlgClear.addEventListener("click", () => {
+        if (!activeNpc) return;
+        localStorage.removeItem(`ai_village_chat_v2_${activeNpc.name}`);
+        renderDialogueHistory();
+      });
 
       dlgForm.addEventListener("submit", async (e) => {
         e.preventDefault();
