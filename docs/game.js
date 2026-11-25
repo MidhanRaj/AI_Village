@@ -324,116 +324,116 @@ function saveChat(name, history) {
   localStorage.setItem(`ai_village_chat_${name}`, JSON.stringify(history.slice(-20)));
 }
 
-function smartFallbackReply(npc, text, playerName) {
-  const lower = text.toLowerCase();
-  const modernWords = ["google", "internet", "iphone", "phone", "computer", "laptop", "car", "airplane", "tv", "youtube", "wifi"];
-  if (modernWords.some((w) => lower.includes(w))) {
-    const guesses = {
-      Blacksmith: `'${text}'? Never heard of it, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
-      Wizard: `Hmm, '${text}'... I have never seen that in any arcane tome. Perhaps it is a distant scrying crystal?`,
-      Witch: `'${text}'? No herb or charm in my satchel goes by that name, ${playerName}.`,
-      Fisherwoman: `'${text}'? Never caught anything by that name in this river, ${playerName}. Is it a kind of bait?`,
-      Fisherman: `'${text}'? Sounds like a strange tide or a fish from deeper waters than I sail.`,
-      Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}?`,
-      Guard: `'${text}'? Never seen that banner or weapon at our gates, ${playerName}.`,
+  function smartFallbackReply(npc, text, playerName) {
+    const lower = text.toLowerCase();
+    const modernWords = ["google", "internet", "iphone", "phone", "computer", "laptop", "car", "airplane", "tv", "youtube", "wifi"];
+    if (modernWords.some((w) => lower.includes(w))) {
+      const guesses = {
+        Blacksmith: `'${text}'? Never heard of it, ${playerName}. Sounds like some strange foreign ore or a secret smithing guild.`,
+        Wizard: `Hmm, '${text}'... I have never seen that in any arcane tome. Perhaps it is a distant scrying crystal?`,
+        Witch: `'${text}'? No herb or charm in my satchel goes by that name, ${playerName}.`,
+        Fisherwoman: `'${text}'? Never caught anything by that name in this river, ${playerName}. Is it a kind of bait?`,
+        Fisherman: `'${text}'? Sounds like a strange tide or a fish from deeper waters than I sail.`,
+        Farmer: `'${text}'? Is that a new kind of grain or plow, ${playerName}?`,
+        Guard: `'${text}'? Never seen that banner or weapon at our gates, ${playerName}.`,
+      };
+      return guesses[npc.role] || `'${text}'? I've never heard of that in our village, ${playerName}. What does it do?`;
+    }
+
+    if (lower.includes("magic") || lower.includes("mgic") || lower.includes("spell")) {
+      if (npc.role === "Wizard" || npc.role === "Witch") {
+        return `Aye, ${playerName}! I weave starlight wards, scrying charms, and fire sparks—though the elders warn not to cast indoors.`;
+      }
+      return `Magic? Leave that to Aldric the Wizard, ${playerName}—I stick to my work as the village ${npc.role}!`;
+    }
+
+    if (lower.includes("who") || lower.includes("name") || lower.includes("job") || lower.includes("do you do")) {
+      return `I'm ${npc.name}, the village ${npc.role}. If you need help around town, just ask!`;
+    }
+
+    if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
+      return `Good day, ${playerName}! Quiet morning here in the village—what brings you to see a ${npc.role}?`;
+    }
+
+    const roleLines = {
+      Blacksmith: `The forge is running hot today, ${playerName}. Need a blade sharpened or horseshoes mended?`,
+      Wizard: `The stars shifted strangely last night, ${playerName}. Tell me more of what you seek.`,
+      Witch: `My cauldron's simmering with moonleaf tea, ${playerName}. Speak plainly—what's on your mind?`,
+      Merchant: `I've got fine cloth and spices from the southern road, ${playerName}. Looking to trade?`,
+      Farmer: `If the rain holds off until dusk, the wheat harvest will be our best yet, ${playerName}!`,
+      Guard: `All roads into the village look clear today, ${playerName}. Stay out of trouble.`,
+      Healer: `You look well enough, ${playerName}, though a sprig of chamomile never hurts after long travel.`,
+      Innkeeper: `Pull up a chair sometime, ${playerName}—there's warm stew and fresh ale at the inn!`,
+      Elder: `I've watched this village grow for sixty summers, ${playerName}. Every traveler leaves a mark.`,
+      Fisherwoman: `The river trout are biting near the bend today, ${playerName}!`,
+      Fisherman: `Patience is everything by the water, ${playerName}.`,
+      Hunter: `Fresh deer tracks near the north pines, ${playerName}. Keep your eyes sharp.`,
     };
-    return guesses[npc.role] || `'${text}'? I've never heard of that in our village, ${playerName}. What does it do?`;
+    return roleLines[npc.role] || `Interesting thought, ${playerName}. Around here, we take each day as it comes.`;
   }
 
-  if (lower.includes("magic") || lower.includes("mgic") || lower.includes("spell")) {
-    if (npc.role === "Wizard" || npc.role === "Witch") {
-      return `Aye, ${playerName}! I weave starlight wards, scrying charms, and fire sparks—though the elders warn not to cast indoors.`;
-    }
-    return `Magic? Leave that to Aldric the Wizard, ${playerName}—I stick to my work as the village ${npc.role}!`;
-  }
+  async function generateReply(npc, text, rosterSummary, playerName) {
+    const history = loadChat(npc.name);
+    history.push({ sender: "player", text });
 
-  if (lower.includes("who") || lower.includes("name") || lower.includes("job") || lower.includes("do you do")) {
-    return `I'm ${npc.name}, the village ${npc.role}. If you need help around town, just ask!`;
-  }
-
-  if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
-    return `Good day, ${playerName}! Quiet morning here in the village—what brings you to see a ${npc.role}?`;
-  }
-
-  const roleLines = {
-    Blacksmith: `The forge is running hot today, ${playerName}. Need a blade sharpened or horseshoes mended?`,
-    Wizard: `The stars shifted strangely last night, ${playerName}. Tell me more of what you seek.`,
-    Witch: `My cauldron's simmering with moonleaf tea, ${playerName}. Speak plainly—what's on your mind?`,
-    Merchant: `I've got fine cloth and spices from the southern road, ${playerName}. Looking to trade?`,
-    Farmer: `If the rain holds off until dusk, the wheat harvest will be our best yet, ${playerName}!`,
-    Guard: `All roads into the village look clear today, ${playerName}. Stay out of trouble.`,
-    Healer: `You look well enough, ${playerName}, though a sprig of chamomile never hurts after long travel.`,
-    Innkeeper: `Pull up a chair sometime, ${playerName}—there's warm stew and fresh ale at the inn!`,
-    Elder: `I've watched this village grow for sixty summers, ${playerName}. Every traveler leaves a mark.`,
-    Fisherwoman: `The river trout are biting near the bend today, ${playerName}!`,
-    Fisherman: `Patience is everything by the water, ${playerName}.`,
-    Hunter: `Fresh deer tracks near the north pines, ${playerName}. Keep your eyes sharp.`,
-  };
-  return roleLines[npc.role] || `Interesting thought, ${playerName}. Around here, we take each day as it comes.`;
-}
-
-async function generateReply(npc, text, rosterSummary, playerName) {
-  const history = loadChat(npc.name);
-  history.push({ sender: "player", text });
-
-  let reply = "";
-  if (webllmEngine) {
-    const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
-    const systemPrompt =
-      `You are ${npc.name}, the ${npc.role} in a medieval fantasy village.\n` +
-      `You are speaking with ${playerName}. ${personality}\n` +
-      `Other villagers:\n${rosterSummary}\n` +
+    let reply = "";
+    if (webllmEngine) {
+      const personality = ROLE_PERSONALITIES[npc.role] || ROLE_PERSONALITIES.Villager;
+      const systemPrompt =
+        `You are ${npc.name}, the ${npc.role} in a medieval fantasy village.\n` +
+        `You are speaking with ${playerName}. ${personality}\n` +
+        `Other villagers:\n${rosterSummary}\n` +
       `Guidelines: Answer the player's actual question or comment directly and naturally in 1 to 2 short sentences. ` +
-      `Stay in your medieval fantasy world; if they mention an unfamiliar word, ask what it means or guess based on your craft.`;
+        `Stay in your medieval fantasy world; if they mention an unfamiliar word, ask what it means or guess based on your craft.`;
 
-    const messages = [{ role: "system", content: systemPrompt }];
-    for (const m of history.slice(-8)) {
-      messages.push({ role: m.sender === "player" ? "user" : "assistant", content: m.text });
+      const messages = [{ role: "system", content: systemPrompt }];
+      for (const m of history.slice(-8)) {
+        messages.push({ role: m.sender === "player" ? "user" : "assistant", content: m.text });
+      }
+      try {
+        const out = await webllmEngine.chat.completions.create({
+          messages,
+          temperature: 0.7,
+          max_tokens: 90,
+        });
+        reply = out.choices?.[0]?.message?.content?.trim() || "";
+      } catch {
+        reply = "";
+      }
     }
-    try {
-      const out = await webllmEngine.chat.completions.create({
-        messages,
-        temperature: 0.7,
-        max_tokens: 90,
-      });
-      reply = out.choices?.[0]?.message?.content?.trim() || "";
-    } catch {
-      reply = "";
+    if (!reply) {
+      reply = smartFallbackReply(npc, text, playerName);
     }
+    history.push({ sender: "npc", text: reply });
+    saveChat(npc.name, history);
+    return reply;
   }
-  if (!reply) {
-    reply = smartFallbackReply(npc, text, playerName);
-  }
-  history.push({ sender: "npc", text: reply });
-  saveChat(npc.name, history);
-  return reply;
-}
 
-async function initBrowserAI() {
-  if (webllmEngine || aiLoading) return;
-  if (!navigator.gpu) {
-    aiStatus.textContent = "Smart Fallback Active (No WebGPU)";
-    btnAi.classList.add("hidden");
-    return;
-  }
-  aiLoading = true;
-  btnAi.disabled = true;
-  aiStatus.textContent = "Loading Browser AI (Qwen)...";
-  try {
-    const webllm = await import("https://esm.run/@mlc-ai/web-llm");
-    webllmEngine = await webllm.CreateMLCEngine("Qwen2.5-0.5B-Instruct-q4f16_1-MLC", {
-      initProgressCallback: (p) => {
-        aiStatus.textContent = p.text ? p.text.slice(0, 42) : "Loading Qwen...";
-      },
-    });
-    aiStatus.textContent = "Browser AI Ready (Qwen2.5)";
-    btnAi.classList.add("hidden");
-  } catch {
-    aiStatus.textContent = "Smart Fallback Active";
-    btnAi.disabled = false;
-  } finally {
-    aiLoading = false;
-  }
+    async function initBrowserAI() {
+      if (webllmEngine || aiLoading) return;
+      if (!navigator.gpu) {
+        aiStatus.textContent = "Smart Fallback Active (No WebGPU)";
+        btnAi.classList.add("hidden");
+        return;
+      }
+      aiLoading = true;
+      btnAi.disabled = true;
+      aiStatus.textContent = "Loading Browser AI (Qwen)...";
+      try {
+        const webllm = await import("https://esm.run/@mlc-ai/web-llm");
+        webllmEngine = await webllm.CreateMLCEngine("Qwen2.5-0.5B-Instruct-q4f16_1-MLC", {
+          initProgressCallback: (p) => {
+            aiStatus.textContent = p.text ? p.text.slice(0, 42) : "Loading Qwen...";
+          },
+        });
+        aiStatus.textContent = "Browser AI Ready (Qwen2.5)";
+        btnAi.classList.add("hidden");
+      } catch {
+        aiStatus.textContent = "Smart Fallback Active";
+        btnAi.disabled = false;
+      } finally {
+        aiLoading = false;
+      }
 }
 
 btnAi.addEventListener("click", initBrowserAI);
@@ -445,319 +445,319 @@ async function main() {
   const playerBaseSheet = await loadImage("assets/characters/lpc_test.png");
   const npcSheets = await Promise.all(entries.map((e) => loadImage(e.sprite)));
 
-  function fillSelect(el, list) {
-    el.innerHTML = "";
-    list.forEach((item, i) => {
-      const o = document.createElement("option");
-      o.value = String(i);
-      o.textContent = item.label;
-      el.appendChild(o);
-    });
-  }
+    function fillSelect(el, list) {
+      el.innerHTML = "";
+      list.forEach((item, i) => {
+        const o = document.createElement("option");
+        o.value = String(i);
+        o.textContent = item.label;
+        el.appendChild(o);
+      });
+    }
 
-  fillSelect(custSkin, SKIN_PRESETS);
-  fillSelect(custHair, HAIR_PRESETS);
-  fillSelect(custOutfit, OUTFIT_PRESETS);
-  fillSelect(custHat, HAT_PRESETS);
-  fillSelect(custCape, CAPE_PRESETS);
+    fillSelect(custSkin, SKIN_PRESETS);
+    fillSelect(custHair, HAIR_PRESETS);
+    fillSelect(custOutfit, OUTFIT_PRESETS);
+    fillSelect(custHat, HAT_PRESETS);
+    fillSelect(custCape, CAPE_PRESETS);
 
-  const savedCfg = JSON.parse(localStorage.getItem("ai_village_player_v2") || "{}");
-  const playerCfg = {
-    name: savedCfg.name || "Traveler",
-    skin: Number(savedCfg.skin || 0),
-    hair: Number(savedCfg.hair || 0),
-    outfit: Number(savedCfg.outfit || 1),
-    hat: Number(savedCfg.hat || 0),
-    cape: Number(savedCfg.cape || 0),
-  };
-
-  function syncModalFromCfg(cfg) {
-    custName.value = cfg.name;
-    custSkin.value = String(cfg.skin);
-    custHair.value = String(cfg.hair);
-    custOutfit.value = String(cfg.outfit);
-    custHat.value = String(cfg.hat);
-    custCape.value = String(cfg.cape);
-  }
-
-  function readModalCfg() {
-    return {
-      name: custName.value.trim() || "Traveler",
-      skin: Number(custSkin.value || 0),
-      hair: Number(custHair.value || 0),
-      outfit: Number(custOutfit.value || 0),
-      hat: Number(custHat.value || 0),
-      cape: Number(custCape.value || 0),
+    const savedCfg = JSON.parse(localStorage.getItem("ai_village_player_v2") || "{}");
+    const playerCfg = {
+      name: savedCfg.name || "Traveler",
+      skin: Number(savedCfg.skin || 0),
+      hair: Number(savedCfg.hair || 0),
+      outfit: Number(savedCfg.outfit || 1),
+      hat: Number(savedCfg.hat || 0),
+      cape: Number(savedCfg.cape || 0),
     };
-  }
 
-  function renderPreview() {
-    const previewSheet = buildCustomPlayerSheet(playerBaseSheet, readModalCfg());
-    const pctx = custPreview.getContext("2d");
-    pctx.imageSmoothingEnabled = false;
-    pctx.clearRect(0, 0, custPreview.width, custPreview.height);
-    pctx.drawImage(
-      previewSheet,
-      0, (WALK_START_ROW + 2) * FRAME_SIZE, FRAME_SIZE, FRAME_SIZE,
-      16, 16, 64, 64
-    );
-  }
+    function syncModalFromCfg(cfg) {
+      custName.value = cfg.name;
+      custSkin.value = String(cfg.skin);
+      custHair.value = String(cfg.hair);
+      custOutfit.value = String(cfg.outfit);
+      custHat.value = String(cfg.hat);
+      custCape.value = String(cfg.cape);
+    }
 
-  [custName, custSkin, custHair, custOutfit, custHat, custCape].forEach((el) => {
-    el.addEventListener("change", renderPreview);
-  });
+    function readModalCfg() {
+      return {
+        name: custName.value.trim() || "Traveler",
+        skin: Number(custSkin.value || 0),
+        hair: Number(custHair.value || 0),
+        outfit: Number(custOutfit.value || 0),
+        hat: Number(custHat.value || 0),
+        cape: Number(custCape.value || 0),
+      };
+    }
 
-  custRandom.addEventListener("click", () => {
-    syncModalFromCfg({
-      name: custName.value.trim() || "Traveler",
-      skin: Math.floor(Math.random() * SKIN_PRESETS.length),
-      hair: Math.floor(Math.random() * HAIR_PRESETS.length),
-      outfit: Math.floor(Math.random() * OUTFIT_PRESETS.length),
-      hat: Math.floor(Math.random() * HAT_PRESETS.length),
-      cape: Math.floor(Math.random() * CAPE_PRESETS.length),
+    function renderPreview() {
+      const previewSheet = buildCustomPlayerSheet(playerBaseSheet, readModalCfg());
+      const pctx = custPreview.getContext("2d");
+      pctx.imageSmoothingEnabled = false;
+      pctx.clearRect(0, 0, custPreview.width, custPreview.height);
+      pctx.drawImage(
+        previewSheet,
+        0, (WALK_START_ROW + 2) * FRAME_SIZE, FRAME_SIZE, FRAME_SIZE,
+        16, 16, 64, 64
+      );
+    }
+
+    [custName, custSkin, custHair, custOutfit, custHat, custCape].forEach((el) => {
+      el.addEventListener("change", renderPreview);
     });
-    renderPreview();
-  });
 
-  syncModalFromCfg(playerCfg);
-  playerLabel.textContent = playerCfg.name;
+      custRandom.addEventListener("click", () => {
+        syncModalFromCfg({
+          name: custName.value.trim() || "Traveler",
+          skin: Math.floor(Math.random() * SKIN_PRESETS.length),
+          hair: Math.floor(Math.random() * HAIR_PRESETS.length),
+          outfit: Math.floor(Math.random() * OUTFIT_PRESETS.length),
+          hat: Math.floor(Math.random() * HAT_PRESETS.length),
+          cape: Math.floor(Math.random() * CAPE_PRESETS.length),
+        });
+        renderPreview();
+      });
 
-  const initialSheet = buildCustomPlayerSheet(playerBaseSheet, playerCfg);
-  const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
+      syncModalFromCfg(playerCfg);
+      playerLabel.textContent = playerCfg.name;
 
-  const npcs = entries.map((e, i) => {
-    const role = formatOccupation(e.role, e.gender);
-    const [x, y] = NPC_POSITIONS[i % NPC_POSITIONS.length];
-    return new Character(x, y, npcSheets[i], e.name, role, !STATIONARY_ROLES.has(role));
-  });
+      const initialSheet = buildCustomPlayerSheet(playerBaseSheet, playerCfg);
+      const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
 
-  const rosterSummary = npcs.map((n) => `- ${n.name}: ${n.role}`).join("\n");
+      const npcs = entries.map((e, i) => {
+        const role = formatOccupation(e.role, e.gender);
+        const [x, y] = NPC_POSITIONS[i % NPC_POSITIONS.length];
+        return new Character(x, y, npcSheets[i], e.name, role, !STATIONARY_ROLES.has(role));
+      });
 
-  function renderDialogueHistory() {
-    dlgHistory.innerHTML = "";
-    const hist = loadChat(activeNpc.name);
-    const items = hist.length
-      ? hist.slice(-6)
-      : [{ sender: "npc", text: `Greetings, ${player.name}! I'm ${activeNpc.name}, the village ${activeNpc.role}.` }];
-    for (const m of items) {
-      const div = document.createElement("div");
-      div.className = m.sender === "player" ? "msg-player" : "msg-npc";
-      div.textContent = (m.sender === "player" ? "You: " : `${activeNpc.name}: `) + m.text;
-      dlgHistory.appendChild(div);
-    }
-    if (aiThinking) {
-      const div = document.createElement("div");
-      div.className = "msg-npc";
-      div.textContent = `${activeNpc.name} is thinking...`;
-      dlgHistory.appendChild(div);
-    }
-    dlgHistory.scrollTop = dlgHistory.scrollHeight;
-  }
+      const rosterSummary = npcs.map((n) => `- ${n.name}: ${n.role}`).join("\n");
 
-  function openDialogue(npc) {
-    dialogueOpen = true;
-    activeNpc = npc;
-    npc.faceToward(player.x, player.y);
-    dlgName.textContent = `${npc.name} (${npc.role})`;
-    dlgBox.classList.remove("hidden");
-    renderDialogueHistory();
-    dlgInput.focus();
-  }
+      function renderDialogueHistory() {
+        dlgHistory.innerHTML = "";
+        const hist = loadChat(activeNpc.name);
+        const items = hist.length
+          ? hist.slice(-6)
+          : [{ sender: "npc", text: `Greetings, ${player.name}! I'm ${activeNpc.name}, the village ${activeNpc.role}.` }];
+        for (const m of items) {
+          const div = document.createElement("div");
+          div.className = m.sender === "player" ? "msg-player" : "msg-npc";
+          div.textContent = (m.sender === "player" ? "You: " : `${activeNpc.name}: `) + m.text;
+          dlgHistory.appendChild(div);
+        }
+        if (aiThinking) {
+          const div = document.createElement("div");
+          div.className = "msg-npc";
+          div.textContent = `${activeNpc.name} is thinking...`;
+          dlgHistory.appendChild(div);
+        }
+        dlgHistory.scrollTop = dlgHistory.scrollHeight;
+      }
 
-  function closeDialogue() {
-    dialogueOpen = false;
-    activeNpc = null;
-    dlgBox.classList.add("hidden");
-  }
+      function openDialogue(npc) {
+        dialogueOpen = true;
+        activeNpc = npc;
+        npc.faceToward(player.x, player.y);
+        dlgName.textContent = `${npc.name} (${npc.role})`;
+        dlgBox.classList.remove("hidden");
+        renderDialogueHistory();
+        dlgInput.focus();
+      }
 
-  dlgForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!activeNpc || aiThinking) return;
-    const text = dlgInput.value.trim();
-    if (!text) return;
-    dlgInput.value = "";
-    aiThinking = true;
-    renderDialogueHistory();
-    await generateReply(activeNpc, text, rosterSummary, player.name);
-    aiThinking = false;
-    if (activeNpc) renderDialogueHistory();
-  });
+      function closeDialogue() {
+        dialogueOpen = false;
+        activeNpc = null;
+        dlgBox.classList.add("hidden");
+      }
 
-  btnCustomize.addEventListener("click", () => {
-    if (!dialogueOpen) {
-      renderPreview();
-      custModal.classList.remove("hidden");
-    }
-  });
-  custCancel.addEventListener("click", () => custModal.classList.add("hidden"));
-  custSave.addEventListener("click", () => {
-    const nextCfg = readModalCfg();
-    player.name = nextCfg.name;
-    player.sheet = buildCustomPlayerSheet(playerBaseSheet, nextCfg);
-    player.hasIdle = hasIdleRows(player.sheet);
-    playerLabel.textContent = nextCfg.name;
-    localStorage.setItem("ai_village_player_v2", JSON.stringify(nextCfg));
-    custModal.classList.add("hidden");
-  });
+      dlgForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!activeNpc || aiThinking) return;
+        const text = dlgInput.value.trim();
+        if (!text) return;
+        dlgInput.value = "";
+        aiThinking = true;
+        renderDialogueHistory();
+        await generateReply(activeNpc, text, rosterSummary, player.name);
+        aiThinking = false;
+        if (activeNpc) renderDialogueHistory();
+      });
 
-  window.addEventListener("keydown", (e) => {
-    if (document.activeElement === dlgInput || document.activeElement === custName) {
-      if (e.key === "Escape") {
-        closeDialogue();
+      btnCustomize.addEventListener("click", () => {
+        if (!dialogueOpen) {
+          renderPreview();
+          custModal.classList.remove("hidden");
+        }
+      });
+      custCancel.addEventListener("click", () => custModal.classList.add("hidden"));
+      custSave.addEventListener("click", () => {
+        const nextCfg = readModalCfg();
+        player.name = nextCfg.name;
+        player.sheet = buildCustomPlayerSheet(playerBaseSheet, nextCfg);
+        player.hasIdle = hasIdleRows(player.sheet);
+        playerLabel.textContent = nextCfg.name;
+        localStorage.setItem("ai_village_player_v2", JSON.stringify(nextCfg));
         custModal.classList.add("hidden");
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (document.activeElement === dlgInput || document.activeElement === custName) {
+          if (e.key === "Escape") {
+            closeDialogue();
+            custModal.classList.add("hidden");
+          }
+          return;
+        }
+        keys.add(e.key.toLowerCase());
+        if (e.key === "Escape") {
+          closeDialogue();
+          custModal.classList.add("hidden");
+        } else if (e.key.toLowerCase() === "c" && !dialogueOpen) {
+          renderPreview();
+          custModal.classList.toggle("hidden");
+        } else if (e.key.toLowerCase() === "e" && !dialogueOpen && custModal.classList.contains("hidden")) {
+          const near = findNearestNpc();
+          if (near) openDialogue(near);
+        }
+      });
+      window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
+
+      function findNearestNpc() {
+        let best = null;
+        let minD = 85;
+        const px = player.x + 32;
+        const py = player.y + 48;
+        for (const npc of npcs) {
+          const d = Math.hypot(px - (npc.x + 32), py - (npc.y + 48));
+          if (d < minD) {
+            minD = d;
+            best = npc;
+          }
+        }
+        return best;
       }
-      return;
-    }
-    keys.add(e.key.toLowerCase());
-    if (e.key === "Escape") {
-      closeDialogue();
-      custModal.classList.add("hidden");
-    } else if (e.key.toLowerCase() === "c" && !dialogueOpen) {
-      renderPreview();
-      custModal.classList.toggle("hidden");
-    } else if (e.key.toLowerCase() === "e" && !dialogueOpen && custModal.classList.contains("hidden")) {
-      const near = findNearestNpc();
-      if (near) openDialogue(near);
-    }
-  });
-  window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
 
-  function findNearestNpc() {
-    let best = null;
-    let minD = 85;
-    const px = player.x + 32;
-    const py = player.y + 48;
-    for (const npc of npcs) {
-      const d = Math.hypot(px - (npc.x + 32), py - (npc.y + 48));
-      if (d < minD) {
-        minD = d;
-        best = npc;
-      }
-    }
-    return best;
-  }
+      // Auto-start browser AI if WebGPU is supported
+      initBrowserAI();
 
-  // Auto-start browser AI if WebGPU is supported
-  initBrowserAI();
+      let last = performance.now();
+      function loop(now) {
+        const dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
 
-  let last = performance.now();
-  function loop(now) {
-    const dt = Math.min((now - last) / 1000, 0.05);
-    last = now;
+        if (!dialogueOpen && custModal.classList.contains("hidden")) {
+          let dx = 0;
+          let dy = 0;
+          if (keys.has("w") || keys.has("arrowup")) { dy = -1; player.direction = "up"; }
+          else if (keys.has("s") || keys.has("arrowdown")) { dy = 1; player.direction = "down"; }
+          if (keys.has("a") || keys.has("arrowleft")) { dx = -1; player.direction = "left"; }
+          else if (keys.has("d") || keys.has("arrowright")) { dx = 1; player.direction = "right"; }
 
-    if (!dialogueOpen && custModal.classList.contains("hidden")) {
-      let dx = 0;
-      let dy = 0;
-      if (keys.has("w") || keys.has("arrowup")) { dy = -1; player.direction = "up"; }
-      else if (keys.has("s") || keys.has("arrowdown")) { dy = 1; player.direction = "down"; }
-      if (keys.has("a") || keys.has("arrowleft")) { dx = -1; player.direction = "left"; }
-      else if (keys.has("d") || keys.has("arrowright")) { dx = 1; player.direction = "right"; }
+          player.moving = dx !== 0 || dy !== 0;
+          if (player.moving) {
+            const len = Math.hypot(dx, dy);
+            const sx = (dx / len) * player.speed * dt;
+            const sy = (dy / len) * player.speed * dt;
+            const solid = OBSTACLES.concat(npcs.map((n) => n.rect));
 
-      player.moving = dx !== 0 || dy !== 0;
-      if (player.moving) {
-        const len = Math.hypot(dx, dy);
-        const sx = (dx / len) * player.speed * dt;
-        const sy = (dy / len) * player.speed * dt;
-        const solid = OBSTACLES.concat(npcs.map((n) => n.rect));
+            player.x += sx;
+            if (collidesAny(player.rect, solid)) player.x -= sx;
+            player.y += sy;
+            if (collidesAny(player.rect, solid)) player.y -= sy;
 
-        player.x += sx;
-        if (collidesAny(player.rect, solid)) player.x -= sx;
-        player.y += sy;
-        if (collidesAny(player.rect, solid)) player.y -= sy;
-
-        player.x = Math.max(0, Math.min(WORLD_WIDTH - 64, player.x));
-        player.y = Math.max(0, Math.min(WORLD_HEIGHT - 64, player.y));
-      }
-    } else {
-      player.moving = false;
-    }
-    player.updateAnim(dt);
-
-    for (const npc of npcs) {
-      if (dialogueOpen && npc === activeNpc) {
-        npc.moving = false;
-        npc.updateAnim(dt);
-        continue;
-      }
-      if (!npc.canWander) {
-        npc.moving = false;
-        npc.updateAnim(dt);
-        continue;
-      }
-      npc.wanderTimer -= dt;
-      if (npc.wanderTimer <= 0) {
-        if (npc.wanderDx || npc.wanderDy) {
-          npc.wanderDx = 0;
-          npc.wanderDy = 0;
-          npc.wanderTimer = 1.5 + Math.random() * 2.5;
+            player.x = Math.max(0, Math.min(WORLD_WIDTH - 64, player.x));
+            player.y = Math.max(0, Math.min(WORLD_HEIGHT - 64, player.y));
+          }
         } else {
-          const dirs = [[1, 0, "right"], [-1, 0, "left"], [0, 1, "down"], [0, -1, "up"]];
-          const [wx, wy, dir] = dirs[Math.floor(Math.random() * dirs.length)];
-          npc.wanderDx = wx;
-          npc.wanderDy = wy;
-          npc.direction = dir;
-          npc.wanderTimer = 0.9 + Math.random() * 1.3;
+          player.moving = false;
         }
+        player.updateAnim(dt);
+
+        for (const npc of npcs) {
+          if (dialogueOpen && npc === activeNpc) {
+            npc.moving = false;
+            npc.updateAnim(dt);
+            continue;
+          }
+          if (!npc.canWander) {
+            npc.moving = false;
+            npc.updateAnim(dt);
+            continue;
+          }
+          npc.wanderTimer -= dt;
+          if (npc.wanderTimer <= 0) {
+            if (npc.wanderDx || npc.wanderDy) {
+              npc.wanderDx = 0;
+              npc.wanderDy = 0;
+              npc.wanderTimer = 1.5 + Math.random() * 2.5;
+            } else {
+              const dirs = [[1, 0, "right"], [-1, 0, "left"], [0, 1, "down"], [0, -1, "up"]];
+              const [wx, wy, dir] = dirs[Math.floor(Math.random() * dirs.length)];
+              npc.wanderDx = wx;
+              npc.wanderDy = wy;
+              npc.direction = dir;
+              npc.wanderTimer = 0.9 + Math.random() * 1.3;
+            }
+          }
+          if (npc.wanderDx || npc.wanderDy) {
+            npc.moving = true;
+            const solid = OBSTACLES.concat([player.rect]).concat(npcs.filter((o) => o !== npc).map((o) => o.rect));
+            const sx = npc.wanderDx * npc.wanderSpeed * dt;
+            const sy = npc.wanderDy * npc.wanderSpeed * dt;
+            npc.x += sx;
+            if (collidesAny(npc.rect, solid) || Math.abs(npc.x - npc.homeX) > npc.wanderRadius || npc.x < 0 || npc.x > WORLD_WIDTH - 64) {
+              npc.x -= sx;
+              npc.wanderDx = 0;
+              npc.wanderDy = 0;
+            }
+            npc.y += sy;
+            if (collidesAny(npc.rect, solid) || Math.abs(npc.y - npc.homeY) > npc.wanderRadius || npc.y < 0 || npc.y > WORLD_HEIGHT - 64) {
+              npc.y -= sy;
+              npc.wanderDx = 0;
+              npc.wanderDy = 0;
+            }
+          } else {
+            npc.moving = false;
+          }
+          npc.updateAnim(dt);
+        }
+
+        const camX = Math.max(0, Math.min(WORLD_WIDTH - WIDTH, player.x - WIDTH / 2));
+        const camY = Math.max(0, Math.min(WORLD_HEIGHT - HEIGHT, player.y - HEIGHT / 2));
+
+        ctx.fillStyle = "rgb(91,153,87)";
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        ctx.fillStyle = "rgb(82,140,77)";
+        for (let x = 0; x < WORLD_WIDTH; x += 64) {
+          for (let y = 0; y < WORLD_HEIGHT; y += 64) {
+            if (((x / 64 + y / 64) | 0) % 2 === 0) {
+              ctx.fillRect(x - camX, y - camY, 32, 32);
+            }
+          }
+        }
+        ctx.fillStyle = "rgb(183,151,106)";
+        ctx.fillRect(350 - camX, -camY, 100, WORLD_HEIGHT);
+        ctx.fillRect(-camX, 450 - camY, WORLD_WIDTH, 90);
+
+        ctx.fillStyle = "rgb(75,100,50)";
+        for (const o of OBSTACLES) {
+          ctx.fillRect(o.x - camX, o.y - camY, o.w, o.h);
+        }
+
+        const chars = [player, ...npcs].sort((a, b) => a.y - b.y);
+        for (const c of chars) c.draw(camX, camY);
+
+        const near = findNearestNpc();
+        if (near && !dialogueOpen && custModal.classList.contains("hidden")) {
+          promptEl.textContent = `Press E to talk to ${near.name} (${near.role})`;
+          promptEl.classList.remove("hidden");
+        } else {
+          promptEl.classList.add("hidden");
+        }
+
+        requestAnimationFrame(loop);
       }
-      if (npc.wanderDx || npc.wanderDy) {
-        npc.moving = true;
-        const solid = OBSTACLES.concat([player.rect]).concat(npcs.filter((o) => o !== npc).map((o) => o.rect));
-        const sx = npc.wanderDx * npc.wanderSpeed * dt;
-        const sy = npc.wanderDy * npc.wanderSpeed * dt;
-        npc.x += sx;
-        if (collidesAny(npc.rect, solid) || Math.abs(npc.x - npc.homeX) > npc.wanderRadius || npc.x < 0 || npc.x > WORLD_WIDTH - 64) {
-          npc.x -= sx;
-          npc.wanderDx = 0;
-          npc.wanderDy = 0;
-        }
-        npc.y += sy;
-        if (collidesAny(npc.rect, solid) || Math.abs(npc.y - npc.homeY) > npc.wanderRadius || npc.y < 0 || npc.y > WORLD_HEIGHT - 64) {
-          npc.y -= sy;
-          npc.wanderDx = 0;
-          npc.wanderDy = 0;
-        }
-      } else {
-        npc.moving = false;
-      }
-      npc.updateAnim(dt);
+      requestAnimationFrame(loop);
     }
-
-    const camX = Math.max(0, Math.min(WORLD_WIDTH - WIDTH, player.x - WIDTH / 2));
-    const camY = Math.max(0, Math.min(WORLD_HEIGHT - HEIGHT, player.y - HEIGHT / 2));
-
-    ctx.fillStyle = "rgb(91,153,87)";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-    ctx.fillStyle = "rgb(82,140,77)";
-    for (let x = 0; x < WORLD_WIDTH; x += 64) {
-      for (let y = 0; y < WORLD_HEIGHT; y += 64) {
-        if (((x / 64 + y / 64) | 0) % 2 === 0) {
-          ctx.fillRect(x - camX, y - camY, 32, 32);
-        }
-      }
-    }
-    ctx.fillStyle = "rgb(183,151,106)";
-    ctx.fillRect(350 - camX, -camY, 100, WORLD_HEIGHT);
-    ctx.fillRect(-camX, 450 - camY, WORLD_WIDTH, 90);
-
-    ctx.fillStyle = "rgb(75,100,50)";
-    for (const o of OBSTACLES) {
-      ctx.fillRect(o.x - camX, o.y - camY, o.w, o.h);
-    }
-
-    const chars = [player, ...npcs].sort((a, b) => a.y - b.y);
-    for (const c of chars) c.draw(camX, camY);
-
-    const near = findNearestNpc();
-    if (near && !dialogueOpen && custModal.classList.contains("hidden")) {
-      promptEl.textContent = `Press E to talk to ${near.name} (${near.role})`;
-      promptEl.classList.remove("hidden");
-    } else {
-      promptEl.classList.add("hidden");
-    }
-
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-}
 
 main();
