@@ -396,16 +396,14 @@ WORLD_PROPS = [
     ("bldg_cottage", 660, 820, pygame.Rect(676, 924, 224, 108)),
     ("bldg_cottage", 1080, 780, pygame.Rect(1096, 884, 224, 108)),
 
-    # Crafting stations & village props
-    ("bonfire", 490, 340, pygame.Rect(498, 356, 48, 36)),
-    ("anvil", 590, 360, pygame.Rect(596, 376, 48, 36)),
+    # Crafting stations & village props (placed cleanly by their matching buildings)
+    ("anvil", 600, 356, pygame.Rect(606, 372, 48, 36)),
     ("furnace", 870, 260, pygame.Rect(878, 312, 80, 64)),
     ("alchemy", 1225, 290, pygame.Rect(1232, 330, 80, 48)),
-    ("workbench", 930, 920, pygame.Rect(938, 964, 80, 48)),
-    ("farm_crops", 430, 780, None),
-    ("farm_crops", 430, 890, None),
-    ("flowers", 160, 990, None),
-    ("flowers", 380, 340, None),
+    ("workbench", 920, 920, pygame.Rect(928, 964, 80, 48)),
+    ("farm_crops", 480, 790, None),
+    ("farm_crops", 480, 880, None),
+    ("flowers", 140, 990, None),
 
     # Trees & rocks framing the village
     ("tree_1", 40, 40, pygame.Rect(64, 150, 48, 36)),
