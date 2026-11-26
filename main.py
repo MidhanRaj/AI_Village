@@ -397,33 +397,34 @@ WORLD_PROPS = [
     ("bldg_cottage2", 1080, 750, pygame.Rect(1096, 880, 224, 121)),
 
     # Crafting stations & village props (placed beside their matching buildings, off roads)
-    ("anvil", 530, 250, pygame.Rect(536, 266, 64, 48)),
+    ("anvil", 490, 260, pygame.Rect(498, 308, 112, 92)),
     ("furnace", 880, 250, pygame.Rect(888, 302, 80, 64)),
-    ("alchemy", 1225, 290, pygame.Rect(1232, 330, 80, 48)),
-    ("workbench", 920, 920, pygame.Rect(928, 964, 80, 48)),
+    ("alchemy", 1255, 290, pygame.Rect(1263, 330, 80, 48)),
+    ("workbench", 920, 920, pygame.Rect(928, 964, 88, 52)),
     ("farm_crops", 480, 790, None),
     ("farm_crops", 480, 880, None),
     ("flowers", 120, 990, None),
 
     # Trees & rocks framing the outer perimeter & river bank (off roads)
-    ("tree_1", 40, 20, pygame.Rect(64, 130, 48, 36)),
-    ("tree_2", 470, 40, pygame.Rect(494, 150, 48, 36)),
-    ("tree_3", 860, 30, pygame.Rect(884, 140, 48, 36)),
-    ("tree_1", 1320, 40, pygame.Rect(1344, 150, 48, 36)),
-    ("tree_2", 40, 560, pygame.Rect(64, 670, 48, 36)),
-    ("tree_3", 60, 1140, pygame.Rect(84, 1250, 48, 36)),
-    ("tree_1", 520, 1180, pygame.Rect(544, 1290, 48, 36)),
-    ("tree_2", 960, 1180, pygame.Rect(984, 1290, 48, 36)),
-    ("tree_3", 1330, 1060, pygame.Rect(1354, 1170, 48, 36)),
-    ("bush", 270, 360, pygame.Rect(280, 380, 44, 32)),
-    ("bush", 910, 640, pygame.Rect(920, 660, 44, 32)),
-    ("rock", 1380, 680, pygame.Rect(1390, 696, 56, 36)),
+    ("tree_1", 40, 20, pygame.Rect(84, 155, 40, 35)),
+    ("tree_2", 470, 40, pygame.Rect(486, 175, 28, 35)),
+    ("tree_3", 860, 30, pygame.Rect(890, 165, 30, 35)),
+    ("tree_1", 1320, 40, pygame.Rect(1364, 175, 40, 35)),
+    ("tree_2", 40, 560, pygame.Rect(56, 695, 28, 35)),
+    ("tree_3", 60, 1140, pygame.Rect(90, 1275, 30, 35)),
+    ("tree_1", 520, 1180, pygame.Rect(564, 1315, 40, 35)),
+    ("tree_2", 960, 1180, pygame.Rect(976, 1315, 28, 35)),
+    ("tree_3", 1330, 1060, pygame.Rect(1360, 1195, 30, 35)),
+    ("bush", 270, 360, pygame.Rect(274, 378, 44, 30)),
+    ("bush", 910, 640, pygame.Rect(914, 658, 44, 30)),
+    ("rock", 1380, 680, pygame.Rect(1386, 706, 48, 38)),
 ]
 
 obstacles = [r for (_, _, _, r) in WORLD_PROPS if r is not None]
 # River blocks movement except on the wooden dock
 obstacles.append(pygame.Rect(RIVER_RECT.x, RIVER_RECT.y, RIVER_RECT.width, DOCK_RECT.y - RIVER_RECT.y))
 obstacles.append(pygame.Rect(RIVER_RECT.x, DOCK_RECT.bottom, RIVER_RECT.width, RIVER_RECT.bottom - DOCK_RECT.bottom))
+obstacles.append(pygame.Rect(DOCK_RECT.right, DOCK_RECT.y, RIVER_RECT.right - DOCK_RECT.right, DOCK_RECT.height))
 
 
 def build_ground_surface():
@@ -434,7 +435,6 @@ def build_ground_surface():
     t_path_r = WORLD_ASSETS.get("tile_path_right")
     t_path_t = WORLD_ASSETS.get("tile_path_top")
     t_path_b = WORLD_ASSETS.get("tile_path_bottom")
-    t_cobble = WORLD_ASSETS.get("tile_cobble")
     t_water = WORLD_ASSETS.get("tile_water")
     t_water_l = WORLD_ASSETS.get("tile_water_left")
     t_water_t = WORLD_ASSETS.get("tile_water_top")
@@ -468,12 +468,6 @@ def build_ground_surface():
         for ix in (352, 384, 416):
             for iy in (448, 480, 512):
                 surf.blit(t_path, (ix, iy))
-
-    # Village cobble plaza in the center
-    if t_cobble:
-        for x in range(448, 672, 32):
-            for y in range(384, 576, 32):
-                surf.blit(t_cobble, (x, y))
 
     # East river with rippled water & bank edges + wooden fishing dock
     if t_water:
