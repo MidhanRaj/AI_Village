@@ -9,18 +9,56 @@ const IDLE_START_ROW = 22;
 const IDLE_FRAMES = 2;
 const DIRECTIONS = { up: 0, left: 1, down: 2, right: 3 };
 
-const OBSTACLES = [
-  { x: 200, y: 200, w: 100, h: 100 },
-  { x: 700, y: 200, w: 120, h: 100 },
-  { x: 1100, y: 500, w: 120, h: 120 },
-  { x: 300, y: 900, w: 150, h: 100 },
+const RIVER_RECT = { x: 1480, y: 180, w: 320, h: 1060 };
+const DOCK_RECT = { x: 1420, y: 456, w: 160, h: 96 };
+
+const WORLD_PROPS = [
+  { key: "bldg_tavern", x: 80, y: 80, rect: { x: 96, y: 217, w: 224, h: 129 } },
+  { key: "bldg_forge", x: 620, y: 120, rect: { x: 636, y: 244, w: 224, h: 115 } },
+  { key: "bldg_wizard", x: 980, y: 45, rect: { x: 996, y: 209, w: 224, h: 156 } },
+  { key: "bldg_healer", x: 80, y: 740, rect: { x: 96, y: 863, w: 224, h: 115 } },
+  { key: "bldg_cottage", x: 660, y: 800, rect: { x: 676, y: 924, w: 224, h: 116 } },
+  { key: "bldg_cottage2", x: 1080, y: 750, rect: { x: 1096, y: 880, w: 224, h: 121 } },
+  { key: "anvil", x: 530, y: 250, rect: { x: 536, y: 266, w: 64, h: 48 } },
+  { key: "furnace", x: 880, y: 250, rect: { x: 888, y: 302, w: 80, h: 64 } },
+  { key: "alchemy", x: 1225, y: 290, rect: { x: 1232, y: 330, w: 80, h: 48 } },
+  { key: "workbench", x: 920, y: 920, rect: { x: 928, y: 964, w: 80, h: 48 } },
+  { key: "farm_crops", x: 480, y: 790, rect: null, ground: true },
+  { key: "farm_crops", x: 480, y: 880, rect: null, ground: true },
+  { key: "flowers", x: 120, y: 990, rect: null, ground: true },
+  { key: "tree_1", x: 40, y: 20, rect: { x: 64, y: 130, w: 48, h: 36 } },
+  { key: "tree_2", x: 470, y: 40, rect: { x: 494, y: 150, w: 48, h: 36 } },
+  { key: "tree_3", x: 860, y: 30, rect: { x: 884, y: 140, w: 48, h: 36 } },
+  { key: "tree_1", x: 1320, y: 40, rect: { x: 1344, y: 150, w: 48, h: 36 } },
+  { key: "tree_2", x: 40, y: 560, rect: { x: 64, y: 670, w: 48, h: 36 } },
+  { key: "tree_3", x: 60, y: 1140, rect: { x: 84, y: 1250, w: 48, h: 36 } },
+  { key: "tree_1", x: 520, y: 1180, rect: { x: 544, y: 1290, w: 48, h: 36 } },
+  { key: "tree_2", x: 960, y: 1180, rect: { x: 984, y: 1290, w: 48, h: 36 } },
+  { key: "tree_3", x: 1330, y: 1060, rect: { x: 1354, y: 1170, w: 48, h: 36 } },
+  { key: "bush", x: 270, y: 360, rect: { x: 280, y: 380, w: 44, h: 32 } },
+  { key: "bush", x: 910, y: 640, rect: { x: 920, y: 660, w: 44, h: 32 } },
+  { key: "rock", x: 1380, y: 680, rect: { x: 1390, y: 696, w: 56, h: 36 } },
 ];
 
-const NPC_POSITIONS = [
-  [600, 400], [800, 500], [1000, 350], [1200, 700],
-  [500, 850], [900, 950], [1300, 1000], [300, 600],
-  [1500, 400], [700, 1100], [1100, 1200], [550, 250],
-];
+const OBSTACLES = WORLD_PROPS.filter((p) => p.rect).map((p) => p.rect).concat([
+  { x: RIVER_RECT.x, y: RIVER_RECT.y, w: RIVER_RECT.w, h: DOCK_RECT.y - RIVER_RECT.y },
+  { x: RIVER_RECT.x, y: DOCK_RECT.y + DOCK_RECT.h, w: RIVER_RECT.w, h: (RIVER_RECT.y + RIVER_RECT.h) - (DOCK_RECT.y + DOCK_RECT.h) },
+]);
+
+const ROLE_POSITIONS = {
+  Blacksmith: [690, 380],
+  Wizard: [1050, 380],
+  Merchant: [740, 1050],
+  Farmer: [490, 880],
+  Guard: [440, 460],
+  Healer: [210, 990],
+  Innkeeper: [210, 355],
+  Elder: [1160, 1010],
+  Fisherwoman: [1420, 470],
+  Fisherman: [1420, 470],
+  Hunter: [1280, 280],
+};
+const VILLAGER_POSITIONS = [[540, 560], [880, 560]];
 
 const STATIONARY_ROLES = new Set(["Wizard", "Witch", "Elder", "Blacksmith", "Healer"]);
 
@@ -549,11 +587,67 @@ async function main() {
   const initialSheet = await buildCustomLpcSheet(playerCfg);
   const player = new Character(400, 400, initialSheet, playerCfg.name, "Traveler", false);
 
-      const npcs = entries.map((e, i) => {
-        const role = formatOccupation(e.role, e.gender);
-        const [x, y] = NPC_POSITIONS[i % NPC_POSITIONS.length];
-        return new Character(x, y, npcSheets[i], e.name, role, !STATIONARY_ROLES.has(role));
-      });
+  let vIdx = 0;
+  const npcs = entries.map((e, i) => {
+    const role = formatOccupation(e.role, e.gender);
+    let pos = ROLE_POSITIONS[role];
+    if (!pos) {
+      pos = VILLAGER_POSITIONS[vIdx % VILLAGER_POSITIONS.length];
+      vIdx += 1;
+    }
+    return new Character(pos[0], pos[1], npcSheets[i], e.name, role, !STATIONARY_ROLES.has(role));
+  });
+
+  const worldKeys = [
+    "tile_grass", "tile_path", "tile_path_left", "tile_path_right", "tile_path_top", "tile_path_bottom",
+    "tile_cobble", "tile_water", "tile_water_left", "tile_water_top", "tile_water_bottom", "tile_wood",
+    "bldg_tavern", "bldg_forge", "bldg_wizard", "bldg_healer", "bldg_cottage", "bldg_cottage2",
+    "anvil", "furnace", "alchemy", "workbench", "farm_crops", "flowers",
+    "tree_1", "tree_2", "tree_3", "bush", "rock",
+  ];
+  const worldImgs = {};
+  await Promise.all(worldKeys.map(async (k) => {
+    worldImgs[k] = await loadImage(`assets/world/${k}.png`);
+  }));
+
+  const groundCanvas = document.createElement("canvas");
+  groundCanvas.width = WORLD_WIDTH;
+  groundCanvas.height = WORLD_HEIGHT;
+  const gctx = groundCanvas.getContext("2d");
+  gctx.imageSmoothingEnabled = false;
+  for (let x = 0; x < WORLD_WIDTH; x += 32) {
+    for (let y = 0; y < WORLD_HEIGHT; y += 32) {
+      gctx.drawImage(worldImgs.tile_grass, x, y);
+    }
+  }
+  for (let y = 0; y < WORLD_HEIGHT; y += 32) {
+    gctx.drawImage(worldImgs.tile_path_left, 352, y);
+    gctx.drawImage(worldImgs.tile_path, 384, y);
+    gctx.drawImage(worldImgs.tile_path_right, 416, y);
+  }
+  for (let x = 0; x < 1480; x += 32) {
+    gctx.drawImage(worldImgs.tile_path_top, x, 448);
+    gctx.drawImage(worldImgs.tile_path, x, 480);
+    gctx.drawImage(worldImgs.tile_path_bottom, x, 512);
+  }
+  for (const ix of [352, 384, 416]) {
+    for (const iy of [448, 480, 512]) gctx.drawImage(worldImgs.tile_path, ix, iy);
+  }
+  for (let x = 448; x < 672; x += 32) {
+    for (let y = 384; y < 576; y += 32) gctx.drawImage(worldImgs.tile_cobble, x, y);
+  }
+  for (let x = RIVER_RECT.x; x < RIVER_RECT.x + RIVER_RECT.w; x += 32) {
+    for (let y = RIVER_RECT.y; y < RIVER_RECT.y + RIVER_RECT.h; y += 32) {
+      let wt = worldImgs.tile_water;
+      if (x === RIVER_RECT.x) wt = worldImgs.tile_water_left;
+      else if (y === RIVER_RECT.y) wt = worldImgs.tile_water_top;
+      else if (y >= RIVER_RECT.y + RIVER_RECT.h - 32) wt = worldImgs.tile_water_bottom;
+      gctx.drawImage(wt, x, y);
+    }
+  }
+  for (let x = DOCK_RECT.x; x < DOCK_RECT.x + DOCK_RECT.w; x += 32) {
+    for (let y = DOCK_RECT.y; y < DOCK_RECT.y + DOCK_RECT.h; y += 32) gctx.drawImage(worldImgs.tile_wood, x, y);
+  }
 
       const rosterSummary = npcs.map((n) => `- ${n.name}: ${n.role}`).join("\n");
 
@@ -755,27 +849,20 @@ async function main() {
         const camX = Math.max(0, Math.min(WORLD_WIDTH - WIDTH, player.x - WIDTH / 2));
         const camY = Math.max(0, Math.min(WORLD_HEIGHT - HEIGHT, player.y - HEIGHT / 2));
 
-        ctx.fillStyle = "rgb(91,153,87)";
-        ctx.fillRect(0, 0, WIDTH, HEIGHT);
-        ctx.fillStyle = "rgb(82,140,77)";
-        for (let x = 0; x < WORLD_WIDTH; x += 64) {
-          for (let y = 0; y < WORLD_HEIGHT; y += 64) {
-            if (((x / 64 + y / 64) | 0) % 2 === 0) {
-              ctx.fillRect(x - camX, y - camY, 32, 32);
-            }
-          }
-        }
-        ctx.fillStyle = "rgb(183,151,106)";
-        ctx.fillRect(350 - camX, -camY, 100, WORLD_HEIGHT);
-        ctx.fillRect(-camX, 450 - camY, WORLD_WIDTH, 90);
+        ctx.drawImage(groundCanvas, camX, camY, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT);
 
-        ctx.fillStyle = "rgb(75,100,50)";
-        for (const o of OBSTACLES) {
-          ctx.fillRect(o.x - camX, o.y - camY, o.w, o.h);
+        const renderables = [];
+        for (const p of WORLD_PROPS) {
+          const img = worldImgs[p.key];
+          if (!img) continue;
+          const sortY = p.ground ? 0 : p.y + img.height;
+          renderables.push({ sortY, draw: () => ctx.drawImage(img, Math.round(p.x - camX), Math.round(p.y - camY)) });
         }
-
-        const chars = [player, ...npcs].sort((a, b) => a.y - b.y);
-        for (const c of chars) c.draw(camX, camY);
+        for (const c of [player, ...npcs]) {
+          renderables.push({ sortY: c.y + 62, draw: () => c.draw(camX, camY) });
+        }
+        renderables.sort((a, b) => a.sortY - b.sortY);
+        for (const r of renderables) r.draw();
 
         const near = findNearestNpc();
         if (near && !dialogueOpen && custModal.classList.contains("hidden")) {

@@ -24,6 +24,7 @@ WORLD_HEIGHT = 1400
 
 BASE_DIR = Path(__file__).resolve().parent
 CHARACTER_DIR = BASE_DIR / "assets" / "characters"
+WORLD_DIR = BASE_DIR / "assets" / "world"
 MANIFEST_FILE = BASE_DIR / "villagers.json"
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -314,32 +315,41 @@ def create_npcs(villagers):
     if not villagers:
         return npcs
 
-    positions = [
-        (600, 400),
-        (800, 500),
-        (1000, 350),
-        (1200, 700),
-        (500, 850),
-        (900, 950),
-        (1300, 1000),
-        (300, 600),
-        (1500, 400),
-        (700, 1100),
-        (1100, 1200),
-        (550, 250),
-    ]
+    # Role-matched positions near their buildings & stations
+    role_positions = {
+        "Blacksmith": (690, 380),
+        "Wizard": (1050, 380),
+        "Merchant": (740, 1050),
+        "Farmer": (490, 880),
+        "Guard": (490, 440),
+        "Healer": (190, 990),
+        "Innkeeper": (190, 355),
+        "Elder": (1160, 1010),
+        "Fisherwoman": (1420, 470),
+        "Fisherman": (1420, 470),
+        "Hunter": (1280, 280),
+    }
+    villager_positions = [(540, 560), (880, 560)]
+    v_idx = 0
 
     # These roles stay near their post; others wander around their home area
     stationary_roles = {"Wizard", "Witch", "Elder", "Blacksmith", "Healer"}
 
-    for villager, position in zip(villagers, positions):
-        can_wander = villager["role"] not in stationary_roles
+    for villager in villagers:
+        role = villager["role"]
+        if role in role_positions:
+            pos = role_positions[role]
+        else:
+            pos = villager_positions[v_idx % len(villager_positions)]
+            v_idx += 1
+
+        can_wander = role not in stationary_roles
         npc = Character(
-            position[0],
-            position[1],
+            pos[0],
+            pos[1],
             villager["sheet"],
             villager["name"],
-            villager["role"],
+            role,
             can_wander=can_wander,
         )
         npcs.append(npc)
@@ -348,7 +358,7 @@ def create_npcs(villagers):
 
 
 # ==========================================
-# COLLISION & WORLD
+# COLLISION & WORLD (TILESETS, BUILDINGS, PROPS)
 # ==========================================
 
 def check_collision(rect, obstacles_list):
@@ -358,37 +368,142 @@ def check_collision(rect, obstacles_list):
     return False
 
 
-obstacles = [
-    pygame.Rect(200, 200, 100, 100),
-    pygame.Rect(700, 200, 120, 100),
-    pygame.Rect(1100, 500, 120, 120),
-    pygame.Rect(300, 900, 150, 100),
+def load_world_assets():
+    assets = {}
+    if not WORLD_DIR.exists():
+        return assets
+    for p in WORLD_DIR.glob("*.png"):
+        try:
+            assets[p.stem] = pygame.image.load(str(p)).convert_alpha()
+        except pygame.error:
+            pass
+    return assets
+
+
+WORLD_ASSETS = load_world_assets()
+
+# River & dock bounds
+RIVER_RECT = pygame.Rect(1480, 180, 320, 1060)
+DOCK_RECT = pygame.Rect(1420, 456, 160, 96)
+
+# Buildings & props: (asset_key, x, y, solid_rect_or_None) — kept clear of roads (x=352..448, y=448..544)
+WORLD_PROPS = [
+    # Buildings (solid rect covers lower walls so player can walk behind roof)
+    ("bldg_tavern", 80, 80, pygame.Rect(96, 217, 224, 129)),
+    ("bldg_forge", 620, 120, pygame.Rect(636, 244, 224, 115)),
+    ("bldg_wizard", 980, 45, pygame.Rect(996, 209, 224, 156)),
+    ("bldg_healer", 80, 740, pygame.Rect(96, 863, 224, 115)),
+    ("bldg_cottage", 660, 800, pygame.Rect(676, 924, 224, 116)),
+    ("bldg_cottage2", 1080, 750, pygame.Rect(1096, 880, 224, 121)),
+
+    # Crafting stations & village props (placed beside their matching buildings, off roads)
+    ("anvil", 530, 250, pygame.Rect(536, 266, 64, 48)),
+    ("furnace", 880, 250, pygame.Rect(888, 302, 80, 64)),
+    ("alchemy", 1225, 290, pygame.Rect(1232, 330, 80, 48)),
+    ("workbench", 920, 920, pygame.Rect(928, 964, 80, 48)),
+    ("farm_crops", 480, 790, None),
+    ("farm_crops", 480, 880, None),
+    ("flowers", 120, 990, None),
+
+    # Trees & rocks framing the outer perimeter & river bank (off roads)
+    ("tree_1", 40, 20, pygame.Rect(64, 130, 48, 36)),
+    ("tree_2", 470, 40, pygame.Rect(494, 150, 48, 36)),
+    ("tree_3", 860, 30, pygame.Rect(884, 140, 48, 36)),
+    ("tree_1", 1320, 40, pygame.Rect(1344, 150, 48, 36)),
+    ("tree_2", 40, 560, pygame.Rect(64, 670, 48, 36)),
+    ("tree_3", 60, 1140, pygame.Rect(84, 1250, 48, 36)),
+    ("tree_1", 520, 1180, pygame.Rect(544, 1290, 48, 36)),
+    ("tree_2", 960, 1180, pygame.Rect(984, 1290, 48, 36)),
+    ("tree_3", 1330, 1060, pygame.Rect(1354, 1170, 48, 36)),
+    ("bush", 270, 360, pygame.Rect(280, 380, 44, 32)),
+    ("bush", 910, 640, pygame.Rect(920, 660, 44, 32)),
+    ("rock", 1380, 680, pygame.Rect(1390, 696, 56, 36)),
 ]
+
+obstacles = [r for (_, _, _, r) in WORLD_PROPS if r is not None]
+# River blocks movement except on the wooden dock
+obstacles.append(pygame.Rect(RIVER_RECT.x, RIVER_RECT.y, RIVER_RECT.width, DOCK_RECT.y - RIVER_RECT.y))
+obstacles.append(pygame.Rect(RIVER_RECT.x, DOCK_RECT.bottom, RIVER_RECT.width, RIVER_RECT.bottom - DOCK_RECT.bottom))
+
+
+def build_ground_surface():
+    surf = pygame.Surface((WORLD_WIDTH, WORLD_HEIGHT))
+    t_grass = WORLD_ASSETS.get("tile_grass")
+    t_path = WORLD_ASSETS.get("tile_path")
+    t_path_l = WORLD_ASSETS.get("tile_path_left")
+    t_path_r = WORLD_ASSETS.get("tile_path_right")
+    t_path_t = WORLD_ASSETS.get("tile_path_top")
+    t_path_b = WORLD_ASSETS.get("tile_path_bottom")
+    t_cobble = WORLD_ASSETS.get("tile_cobble")
+    t_water = WORLD_ASSETS.get("tile_water")
+    t_water_l = WORLD_ASSETS.get("tile_water_left")
+    t_water_t = WORLD_ASSETS.get("tile_water_top")
+    t_water_b = WORLD_ASSETS.get("tile_water_bottom")
+    t_wood = WORLD_ASSETS.get("tile_wood")
+
+    if not t_grass:
+        surf.fill(GRASS)
+        return surf
+
+    # Uniform lush grass base (no squarey checkerboard)
+    for x in range(0, WORLD_WIDTH, 32):
+        for y in range(0, WORLD_HEIGHT, 32):
+            surf.blit(t_grass, (x, y))
+
+    # Dirt roads with soft autotile edges
+    if t_path:
+        for y in range(0, WORLD_HEIGHT, 32):
+            if t_path_l:
+                surf.blit(t_path_l, (352, y))
+            surf.blit(t_path, (384, y))
+            if t_path_r:
+                surf.blit(t_path_r, (416, y))
+        for x in range(0, 1480, 32):
+            if t_path_t:
+                surf.blit(t_path_t, (x, 448))
+            surf.blit(t_path, (x, 480))
+            if t_path_b:
+                surf.blit(t_path_b, (x, 512))
+        # Merge vertical + horizontal road intersection seamlessly
+        for ix in (352, 384, 416):
+            for iy in (448, 480, 512):
+                surf.blit(t_path, (ix, iy))
+
+    # Village cobble plaza in the center
+    if t_cobble:
+        for x in range(448, 672, 32):
+            for y in range(384, 576, 32):
+                surf.blit(t_cobble, (x, y))
+
+    # East river with rippled water & bank edges + wooden fishing dock
+    if t_water:
+        for x in range(RIVER_RECT.x, RIVER_RECT.right, 32):
+            for y in range(RIVER_RECT.y, RIVER_RECT.bottom, 32):
+                tile = t_water
+                if x == RIVER_RECT.x and t_water_l:
+                    tile = t_water_l
+                elif y == RIVER_RECT.y and t_water_t:
+                    tile = t_water_t
+                elif y >= RIVER_RECT.bottom - 32 and t_water_b:
+                    tile = t_water_b
+                surf.blit(tile, (x, y))
+    if t_wood:
+        for x in range(DOCK_RECT.x, DOCK_RECT.right, 32):
+            for y in range(DOCK_RECT.y, DOCK_RECT.bottom, 32):
+                surf.blit(t_wood, (x, y))
+
+    return surf
+
+
+GROUND_SURFACE = build_ground_surface()
 
 
 def draw_world(camera_x, camera_y):
-    screen.fill(GRASS)
-
-    for x in range(0, WORLD_WIDTH, 64):
-        for y in range(0, WORLD_HEIGHT, 64):
-            if (x // 64 + y // 64) % 2 == 0:
-                pygame.draw.rect(
-                    screen,
-                    GRASS_DARK,
-                    (x - camera_x, y - camera_y, 32, 32),
-                )
-
-    pygame.draw.rect(screen, PATH, (350 - camera_x, 0 - camera_y, 100, WORLD_HEIGHT))
-    pygame.draw.rect(screen, PATH, (0 - camera_x, 450 - camera_y, WORLD_WIDTH, 90))
-
-    for obstacle in obstacles:
-        rect = pygame.Rect(
-            obstacle.x - camera_x,
-            obstacle.y - camera_y,
-            obstacle.width,
-            obstacle.height,
-        )
-        pygame.draw.rect(screen, (75, 100, 50), rect)
+    screen.blit(
+        GROUND_SURFACE,
+        (0, 0),
+        pygame.Rect(int(camera_x), int(camera_y), WIDTH, HEIGHT),
+    )
 
 
 # ==========================================
@@ -706,11 +821,23 @@ while running:
     camera_x = max(0, min(WORLD_WIDTH - WIDTH, player.x - WIDTH // 2))
     camera_y = max(0, min(WORLD_HEIGHT - HEIGHT, player.y - HEIGHT // 2))
 
-    # Draw world & Y-sorted characters
+    # Draw world & Y-sorted buildings, props, and characters
     draw_world(camera_x, camera_y)
 
-    for character in sorted([player] + npcs, key=lambda c: c.y):
-        character.draw(screen, camera_x, camera_y)
+    renderables = []
+    for key, px, py, _ in WORLD_PROPS:
+        img = WORLD_ASSETS.get(key)
+        if img is not None:
+            sort_y = py + img.get_height()
+            if key in ("farm_crops", "flowers"):
+                sort_y = 0  # ground-level decals always stay underneath characters
+            renderables.append((sort_y, lambda s=img, x=px, y=py: screen.blit(s, (int(x - camera_x), int(y - camera_y)))))
+
+    for character in [player] + npcs:
+        renderables.append((character.y + 62, lambda c=character: c.draw(screen, camera_x, camera_y)))
+
+    for _, draw_fn in sorted(renderables, key=lambda item: item[0]):
+        draw_fn()
 
     # HUD hint
     if not dialogue_open and not customizer_open:
