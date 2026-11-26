@@ -13,6 +13,7 @@ Unlike traditional games with NPCs limited to predefined dialogue, Whisperwood a
 ## ✨ Features
 
 ### 🏡 Explore the Village
+-Try it out https://midhanraj.github.io/AI_Village/
 - Retro, top-down pixel-art experience.
 - WASD or arrow-key movement.
 - Interact with villagers using the E key.
