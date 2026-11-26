@@ -13,12 +13,12 @@ const RIVER_RECT = { x: 1480, y: 180, w: 320, h: 1060 };
 const DOCK_RECT = { x: 1420, y: 456, w: 160, h: 96 };
 
 const WORLD_PROPS = [
-  { key: "bldg_tavern", x: 80, y: 120, rect: { x: 96, y: 224, w: 224, h: 108 } },
-  { key: "bldg_forge", x: 620, y: 140, rect: { x: 636, y: 244, w: 224, h: 108 } },
-  { key: "bldg_wizard", x: 980, y: 140, rect: { x: 996, y: 244, w: 224, h: 108 } },
-  { key: "bldg_healer", x: 80, y: 760, rect: { x: 96, y: 864, w: 224, h: 108 } },
-  { key: "bldg_cottage", x: 660, y: 820, rect: { x: 676, y: 924, w: 224, h: 108 } },
-  { key: "bldg_cottage", x: 1080, y: 780, rect: { x: 1096, y: 884, w: 224, h: 108 } },
+  { key: "bldg_tavern", x: 80, y: 80, rect: { x: 96, y: 217, w: 224, h: 129 } },
+  { key: "bldg_forge", x: 620, y: 120, rect: { x: 636, y: 244, w: 224, h: 115 } },
+  { key: "bldg_wizard", x: 980, y: 45, rect: { x: 996, y: 209, w: 224, h: 156 } },
+  { key: "bldg_healer", x: 80, y: 740, rect: { x: 96, y: 863, w: 224, h: 115 } },
+  { key: "bldg_cottage", x: 660, y: 800, rect: { x: 676, y: 924, w: 224, h: 116 } },
+  { key: "bldg_cottage2", x: 1080, y: 750, rect: { x: 1096, y: 880, w: 224, h: 121 } },
   { key: "anvil", x: 530, y: 250, rect: { x: 536, y: 266, w: 64, h: 48 } },
   { key: "furnace", x: 880, y: 250, rect: { x: 888, y: 302, w: 80, h: 64 } },
   { key: "alchemy", x: 1225, y: 290, rect: { x: 1232, y: 330, w: 80, h: 48 } },
@@ -601,7 +601,7 @@ async function main() {
   const worldKeys = [
     "tile_grass", "tile_path", "tile_path_left", "tile_path_right", "tile_path_top", "tile_path_bottom",
     "tile_cobble", "tile_water", "tile_water_left", "tile_water_top", "tile_water_bottom", "tile_wood",
-    "bldg_tavern", "bldg_forge", "bldg_wizard", "bldg_healer", "bldg_cottage",
+    "bldg_tavern", "bldg_forge", "bldg_wizard", "bldg_healer", "bldg_cottage", "bldg_cottage2",
     "anvil", "furnace", "alchemy", "workbench", "farm_crops", "flowers",
     "tree_1", "tree_2", "tree_3", "bush", "rock",
   ];
@@ -629,6 +629,9 @@ async function main() {
     gctx.drawImage(worldImgs.tile_path_top, x, 448);
     gctx.drawImage(worldImgs.tile_path, x, 480);
     gctx.drawImage(worldImgs.tile_path_bottom, x, 512);
+  }
+  for (const ix of [352, 384, 416]) {
+    for (const iy of [448, 480, 512]) gctx.drawImage(worldImgs.tile_path, ix, iy);
   }
   for (let x = 448; x < 672; x += 32) {
     for (let y = 384; y < 576; y += 32) gctx.drawImage(worldImgs.tile_cobble, x, y);

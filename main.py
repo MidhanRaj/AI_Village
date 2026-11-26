@@ -389,12 +389,12 @@ DOCK_RECT = pygame.Rect(1420, 456, 160, 96)
 # Buildings & props: (asset_key, x, y, solid_rect_or_None) — kept clear of roads (x=352..448, y=448..544)
 WORLD_PROPS = [
     # Buildings (solid rect covers lower walls so player can walk behind roof)
-    ("bldg_tavern", 80, 120, pygame.Rect(96, 224, 224, 108)),
-    ("bldg_forge", 620, 140, pygame.Rect(636, 244, 224, 108)),
-    ("bldg_wizard", 980, 140, pygame.Rect(996, 244, 224, 108)),
-    ("bldg_healer", 80, 760, pygame.Rect(96, 864, 224, 108)),
-    ("bldg_cottage", 660, 820, pygame.Rect(676, 924, 224, 108)),
-    ("bldg_cottage", 1080, 780, pygame.Rect(1096, 884, 224, 108)),
+    ("bldg_tavern", 80, 80, pygame.Rect(96, 217, 224, 129)),
+    ("bldg_forge", 620, 120, pygame.Rect(636, 244, 224, 115)),
+    ("bldg_wizard", 980, 45, pygame.Rect(996, 209, 224, 156)),
+    ("bldg_healer", 80, 740, pygame.Rect(96, 863, 224, 115)),
+    ("bldg_cottage", 660, 800, pygame.Rect(676, 924, 224, 116)),
+    ("bldg_cottage2", 1080, 750, pygame.Rect(1096, 880, 224, 121)),
 
     # Crafting stations & village props (placed beside their matching buildings, off roads)
     ("anvil", 530, 250, pygame.Rect(536, 266, 64, 48)),
@@ -464,6 +464,10 @@ def build_ground_surface():
             surf.blit(t_path, (x, 480))
             if t_path_b:
                 surf.blit(t_path_b, (x, 512))
+        # Merge vertical + horizontal road intersection seamlessly
+        for ix in (352, 384, 416):
+            for iy in (448, 480, 512):
+                surf.blit(t_path, (ix, iy))
 
     # Village cobble plaza in the center
     if t_cobble:
